@@ -1,0 +1,67 @@
+// ---------------------------------------------------------------------------------------------------------------------
+//
+// Typography utilities
+//
+// Classes funcionais para aplicação de bordas em elementos.
+// ---------------------------------------------------------------------------------------------------------------------
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .border#{$infix}         { border: $border-width solid $border-color; }
+    .border#{$infix}-top     { border-top: $border-width solid $border-color; }
+    .border#{$infix}-right   { border-right: $border-width solid $border-color; }
+    .border#{$infix}-bottom  { border-bottom: $border-width solid $border-color; }
+    .border#{$infix}-left    { border-left: $border-width solid $border-color; }
+    .border#{$infix}-0        { border: 0 !important; }
+    .border#{$infix}-top-0    { border-top: 0 !important; }
+    .border#{$infix}-right-0  { border-right: 0 !important; }
+    .border#{$infix}-bottom-0 { border-bottom: 0 !important; }
+    .border#{$infix}-left-0   { border-left: 0 !important; }
+
+    @each $color, $value in $colors {
+      .border#{$infix}-#{$color} {
+        border-color: $value !important;
+      }
+    }
+    @each $color, $value in $theme-colors {
+      .border#{$infix}-#{$color} {
+        border-color: $value !important;
+      }
+      .border#{$infix}-alert-#{$color} {
+        border-color: theme-color-level($color, $alert-border-level) !important;
+      }
+    }
+
+    .rounded#{$infix} {
+      border-radius: $border-radius !important;
+    }
+    .rounded#{$infix}-top {
+      border-top-left-radius: $border-radius !important;
+      border-top-right-radius: $border-radius !important;
+    }
+    .rounded#{$infix}-right {
+      border-top-right-radius: $border-radius !important;
+      border-bottom-right-radius: $border-radius !important;
+    }
+    .rounded#{$infix}-bottom {
+      border-bottom-right-radius: $border-radius !important;
+      border-bottom-left-radius: $border-radius !important;
+    }
+    .rounded#{$infix}-left {
+      border-top-left-radius: $border-radius !important;
+      border-bottom-left-radius: $border-radius !important;
+    }
+    .rounded#{$infix}-circle {
+      border-radius: 50% !important;
+    }
+    .rounded#{$infix}-0 {
+      border-radius: 0 !important;
+    }
+  }
+}
+
+.border-dotted {
+  border-style: dotted !important;
+}

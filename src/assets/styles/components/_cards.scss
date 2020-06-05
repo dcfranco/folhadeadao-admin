@@ -1,0 +1,64 @@
+.card {
+  background: $white;
+  border: 1px solid $gray-200;
+  width: 100%;
+  padding: space-size(3) space-size(2);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+
+  .card-title {
+    display: flex;
+    margin-bottom: 0px;
+    padding-left: space-size(2);
+    max-width: 65%;
+
+    .card-avatar {
+      width: 25px !important;
+      height: 25px !important;
+      min-width: 25px !important;
+      min-height: 25px !important;
+      border-color: $gray-900;
+      border-width: 2px;
+      font-weight: bold;
+      font-size: text-size('sm');
+      color: $gray-900;
+      margin-right: space-size(1);
+    }
+
+    h6 {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      line-height: inherit;
+    }
+  }
+
+  .card-content {
+    background: rgba($gray-300, 0.05);
+    padding: space-size(2);
+    display: flex;
+    justify-content: space-between;
+    margin-top: space-size(3);
+
+    .card-info {
+      font-size: text-size('sm');
+    
+      &:not(:first-child) {
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .title {
+        display: block;
+        color: $gray-300;
+      }
+    }
+  }
+ 
+  .card-actions {
+    font-size: text-size('2xs');
+
+    & svg:nth-child(n+2) {
+      margin-left: space-size(2);
+    }
+  }
+}

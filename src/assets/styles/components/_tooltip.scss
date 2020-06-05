@@ -1,0 +1,55 @@
+.custom-tooltip {
+  position: absolute;
+  background: $white;
+  border: 1px solid $gray;
+  border-radius: 3px;
+  padding: 5px;
+  right: 0px;
+  top: 130%;
+  max-width: 300px;
+  z-index: 6;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  display: none;
+
+  p {
+    margin-bottom: 2px;
+  }
+
+  .tooltip-header {
+    border-radius: 3px;
+    background: $gray-100;
+    padding: 8px;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.19;
+    letter-spacing: normal;
+    text-align: left;
+    color: $gray-900;
+  }
+
+  .tooltip-description {
+    padding:8px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: left;
+  }
+}
+
+.input-icon:hover .tooltip-icon {
+  display: block;
+}
+
+.tooltip-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,11 @@
+@include media-breakpoint-down(sm) {
+  .use-terms {
+    .content {
+      padding-bottom: 0px;
+
+      .use-terms-text {
+        max-height: 70vh;
+      }
+    }
+  }
+}

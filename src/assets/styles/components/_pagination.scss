@@ -1,0 +1,15 @@
+.pagination {
+  .page-item {
+    .page-link {
+      color: $gray-900;
+      border-color: $gray-200;
+    }
+    &.active {
+      .page-link {
+        background-color: theme-color("primary");
+        border-color: theme-color("primary");
+        color: $white;
+      }
+    }
+  }
+}

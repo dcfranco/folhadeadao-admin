@@ -1,0 +1,43 @@
+.timeline {
+  margin-bottom: space-size(4);
+
+  .timeline-title {
+    text-transform: uppercase;
+    font-size: text-size(md);
+    padding-top: space-size(4);
+    padding-bottom: space-size(2);
+    display: block;
+    font-weight: bold;
+  }
+
+  .timeline-content {
+    background: $white;
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0 4px 16px 0 rgba(69, 91, 99, 0.08);
+    padding: space-size(4);
+
+    .timeline-item {
+      margin-left: space-size(4);
+      padding-bottom: space-size(3);
+      height: 100%;
+      position: relative;
+      border-bottom: 1px solid $gray;
+
+      &:nth-child(n + 2) {
+        margin-top: space-size(3);
+      }
+
+      &::before {
+        position: absolute;
+        content: '';
+        left: -25px;
+        top: 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 15px;
+        background: theme-color("primary");
+      }
+    }
+  }
+}

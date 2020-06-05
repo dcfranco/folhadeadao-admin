@@ -1,0 +1,19 @@
+@include media-breakpoint-down(sm) {
+  .clean-template {
+    min-height: 100vh;
+    max-height: 100vh;
+
+    .content {
+      min-width: unset;
+      max-width: unset;
+      min-height: 100vh !important;
+      height: 100%;
+      padding-bottom: 50px;
+      border-radius: 0px !important;
+
+      .footer-logo {
+        bottom: 20px;
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .text#{$infix}-monospace { font-family: $font-family-monospace; }
+    .text#{$infix}-left   { text-align: left !important; }
+    .text#{$infix}-right  { text-align: right !important; }
+    .text#{$infix}-center { text-align: center !important; }
+    .text#{$infix}-justify  { text-align: justify !important; }
+    .text#{$infix}-nowrap   { white-space: nowrap !important; }
+    .text#{$infix}-truncate { @include text-truncate; }
+    .text#{$infix}-lowercase  { text-transform: lowercase !important; }
+    .text#{$infix}-uppercase  { text-transform: uppercase !important; }
+    .text#{$infix}-capitalize { text-transform: capitalize !important; }
+    .font#{$infix}-italic        { font-style: italic !important; }
+
+    @each $font-weight, $value in $font-weights {
+      .font#{$infix}-weight-#{$font-weight} { font-weight: $value !important; }
+    }
+
+    @each $color, $value in $colors {
+      @include text-emphasis-variant(".text#{$infix}-#{$color}", $value);
+    }
+    @each $color, $value in $theme-colors {
+      @include text-emphasis-variant(".text#{$infix}-#{$color}", $value);
+      @include text-emphasis-variant(".text#{$infix}-alert-#{$color}", theme-color-level($color, $alert-color-level));
+    }
+    .text#{$infix}-white { color: $white !important; }
+    .text#{$infix}-body { color: $body-color !important; }
+    .text#{$infix}-muted { color: $text-muted !important; }
+    .text#{$infix}-black-50 { color: rgba($black, .5) !important; }
+    .text#{$infix}-white-50 { color: rgba($white, .5) !important; }
+
+    .text#{$infix}-hide {
+      @include text-hide($ignore-warning: true);
+    }
+  }
+}
+
+.small-line-height { line-height: 1.143 !important; }

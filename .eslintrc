@@ -1,0 +1,86 @@
+extends: [
+  "eslint-config-airbnb",
+  "plugin:flowtype/recommended"
+]
+
+parser:
+  babel-eslint
+
+plugins: [
+  "flowtype"
+]
+
+settings:
+  ecmascript: 6
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+    modules: true
+    destructuring: true
+    classes: true
+    forOf: true
+    blockBindings: true
+    arrowFunctions: true
+    legacyDecorators: true
+
+env:
+  browser: true
+  jest: true
+
+globals:
+  cy: true
+  Cypress: true
+
+rules:
+  arrow-body-style: 0
+  arrow-parens: 0
+  class-methods-use-this: 0
+  func-names: 0
+  indent: 2
+  new-cap: 0
+  no-plusplus: 0
+  no-return-assign: 0
+  quote-props: 0
+  template-curly-spacing: [2, "never"]
+  dot-notation: 0
+  comma-dangle: ["error", {
+    "arrays": "never",
+    "objects": "never",
+    "imports": "never",
+    "exports": "never",
+    "functions": "never"
+  }]
+  object-curly-newline: ["error", {
+    "ObjectExpression": { "consistent": true },
+    "ObjectPattern": { "consistent": true  },
+    "ImportDeclaration": { "consistent": true },
+    "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+  }]
+  react/forbid-prop-types: 0
+  react/jsx-filename-extension: 0
+  react/jsx-boolean-value: 0
+  react/prefer-stateless-function: 0
+  react/jsx-curly-spacing: [2, "never"]
+  react/no-unused-prop-types: 2
+  react/no-did-mount-set-state: 0
+  react/no-did-update-set-state: 0
+  react/jsx-one-expression-per-line: 0
+  import/extensions: 0
+  import/no-extraneous-dependencies: 0
+  import/no-unresolved: 0
+  import/prefer-default-export: 0
+  jsx-a11y/click-events-have-key-events: 0
+  jsx-a11y/no-static-element-interactions: 0
+  jsx-a11y/label-has-for: 0
+  jsx-a11y/label-has-associated-control: 0
+  jsx-a11y/img-redundant-alt: 0
+  jsx-a11y/anchor-is-valid: 0
+  jsx-quotes: [2, "prefer-single"]
+  semi: [2, "never"]
+  linebreak-style: 0
+  no-extra-boolean-cast: 0
+  react/button-has-type: 0
+  no-underscore-dangle: 0
+  implicit-arrow-linebreak: 0
+  function-paren-newline: 0

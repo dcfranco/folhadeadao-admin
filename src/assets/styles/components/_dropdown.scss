@@ -1,0 +1,130 @@
+.dropdown {
+  position: absolute;
+  min-width: 250px;
+  z-index: $dropdown-z-index;
+  top: -100px;
+  background-color: transparent;
+  visibility: hidden;
+
+  &.is-modal {
+    transition: top 0.5s ease-in-out;
+  }
+
+  &.is-visible {
+    visibility: visible;
+
+    &.is-modal {
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .dropdown-content {
+    background-color: $white;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    border: 1px solid $gray-200;
+    border-radius: 5px;
+
+    .dropdown-header {
+      background-color: rgba($gray-900, 0.05);
+      min-height: 50px;
+      display: flex;
+      border-bottom: 1px solid $gray-200;
+      color: $gray-900;
+
+      span {
+        font-size: text-size('base') !important;
+      }
+    }
+
+    .dropdown-action {
+      min-height: 45px;
+      display: flex;
+      align-items: center;
+      color: rgba($gray-900, 0.7);
+      transition: color 0.1s ease-in-out;
+      cursor: pointer;
+
+      &.exit {
+        color: rgba(theme-color('danger'), 0.7);
+
+        .icon-box {
+          svg {
+            fill: rgba(theme-color('danger'), 0.7);
+          }
+        }
+
+        &:hover {
+          color: theme-color('danger');
+    
+          svg {
+            fill: theme-color('danger');
+          }
+        }
+      }
+
+      .icon-box {
+        min-width: space-size(5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        svg {
+          fill: rgba($gray-900, 0.7);
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $gray-200;
+      }
+
+      &:hover {
+        color: $black;
+
+        svg {
+          fill: $black;
+        }
+      }
+    }
+  }
+
+  .dropdown-modal-close {
+    min-height: 50px;
+    margin-top: space-size(3);
+    color: $gray-900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    background-color: $white;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    border: 1px solid $gray-200;
+    border-radius: 5px;
+  }
+}
+
+.dropdown-overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  z-index: $dropdown-overlay-z-index;
+  top: 0px;
+  left: 0px;
+  display: none;
+  transition: opacity 0.5s ease-in-out;
+
+  &.is-modal {
+    background-color: $black;
+    opacity: 0;
+
+    &.is-visible {
+      opacity: 0.5;
+    }
+  }
+
+  &.is-visible {
+    display: block;
+  }
+}

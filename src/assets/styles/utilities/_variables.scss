@@ -1,0 +1,29 @@
+$text-sizes: (
+  "2xs": .70rem,
+  "xs": .75rem,
+  "sm": .875rem,
+  "base": 1rem,
+  "lg": 1.125rem,
+  "xl": 1.25rem,
+  "1xl": 1.40rem,
+  "2xl": 1.5rem,
+  "3xl": 1.875rem,
+  "4xl": 2.25rem,
+  "5xl": 3rem,
+);
+
+$vertical-aligns: (
+  baseline: baseline,
+  bottom: bottom,
+  middle: middle,
+  top: top,
+);
+
+$font-weights: (
+  "thin": 100,
+  "light": $font-weight-light,
+  "normal": $font-weight-normal,
+  "medium": 500,
+  "bold": $font-weight-bold,
+  "black": 900
+);

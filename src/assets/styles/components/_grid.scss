@@ -1,0 +1,10 @@
+.d-grid {
+  display: grid !important;
+}
+
+.cell-tooltip {
+  .cell-tooltip-text {
+    width: unset !important;
+    min-width: 150px !important;
+  }
+}

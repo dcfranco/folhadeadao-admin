@@ -1,0 +1,47 @@
+[ignore]
+.*/build/.*
+.*/__tests__/.*
+.*/assets/.*
+
+[include]
+src/
+
+[libs]
+flow-typed/
+
+[untyped]
+.*/moment-timezone/.*
+.*/node_modules/redux-persist/*.*
+
+[lints]
+
+[options]
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+esproposal.export_star_as=enable
+suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+module.name_mapper='^app\(.*\)$' -> '<PROJECT_ROOT>/src/app/\1'
+module.name_mapper='^admin\(.*\)$' -> '<PROJECT_ROOT>/src/app/Admin/\1'
+module.name_mapper='^default\(.*\)$' -> '<PROJECT_ROOT>/src/app/Default/\1'
+module.name_mapper='^seller\(.*\)$' -> '<PROJECT_ROOT>/src/app/Seller/\1'
+module.name_mapper='^assets\(.*\)$' -> '<PROJECT_ROOT>/src/assets/\1'
+module.name_mapper='^builders\(.*\)$' -> '<PROJECT_ROOT>/src/builders/\1'
+module.name_mapper='^configs\(.*\)$' -> '<PROJECT_ROOT>/src/configs/\1'
+module.name_mapper='^constants\(.*\)$' -> '<PROJECT_ROOT>/src/constants/\1'
+module.name_mapper='^core\(.*\)$' -> '<PROJECT_ROOT>/src/core/\1'
+module.name_mapper='^loaders\(.*\)$' -> '<PROJECT_ROOT>/src/loaders/\1'
+module.name_mapper='^middlewares\(.*\)$' -> '<PROJECT_ROOT>/src/middlewares/\1'
+module.name_mapper='^base\(.*\)$' -> '<PROJECT_ROOT>/src/shared/base/\1'
+module.name_mapper='^components\(.*\)$' -> '<PROJECT_ROOT>/src/shared/components/\1'
+module.name_mapper='^form\(.*\)$' -> '<PROJECT_ROOT>/src/shared/form/\1'
+module.name_mapper='^helpers\(.*\)$' -> '<PROJECT_ROOT>/src/shared/helpers/\1'
+module.name_mapper='^hooks\(.*\)$' -> '<PROJECT_ROOT>/src/shared/hooks/\1'
+module.name_mapper='^models\(.*\)$' -> '<PROJECT_ROOT>/src/shared/models/\1'
+module.name_mapper='^factories\(.*\)$' -> '<PROJECT_ROOT>/src/shared/factories/\1'
+module.name_mapper='^permissions\(.*\)$' -> '<PROJECT_ROOT>/src/shared/permissions/\1'
+module.name_mapper='^templates\(.*\)$' -> '<PROJECT_ROOT>/src/shared/templates/\1'
+module.name_mapper='^tests\(.*\)$' -> '<PROJECT_ROOT>/src/tests/\1'
+module.name_mapper='^types\(.*\)$' -> '<PROJECT_ROOT>/src/types/\1'
+module.name_mapper='^utils\(.*\)$' -> '<PROJECT_ROOT>/src/utils/\1'
+[strict]

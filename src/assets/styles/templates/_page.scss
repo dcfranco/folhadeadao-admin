@@ -1,0 +1,21 @@
+.back-button {
+  color: $gray-700;
+  letter-spacing: 1px;
+  font-size: text-size('xs');
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: lighter;
+  padding: 0px;
+  margin-top: -#{space-size(2)};
+  margin-bottom: -#{space-size(1)};
+
+  svg {
+    font-size: text-size('sm');
+  }
+
+  @include hover() {
+    text-decoration: none;
+    color: $black;
+  }
+}

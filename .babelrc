@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["react-app", { "absoluteRuntime": false }],
+    "@babel/preset-env",
+    "@babel/preset-flow"
+  ],
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties",{ "loose:": true }],
+    "@babel/plugin-syntax-dynamic-import"
+  ],
+  "retainLines": true
+}

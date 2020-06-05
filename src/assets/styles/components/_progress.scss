@@ -1,0 +1,14 @@
+.progress {
+  &.password-strength {
+    overflow: hidden;
+    background-color: $gray-200;
+    min-height: 20px;
+
+    .children {
+      color: $gray-500;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+}

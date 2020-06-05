@@ -1,0 +1,17 @@
+.avatar {
+  width: 45px;
+  min-width: 45px;
+  height: 45px;
+  min-height: 45px;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $gray-200;
+  color: theme-color('success');
+
+  &:hover {
+    border: 1px solid $gray-300;
+    transition: all .1s ease-in;
+  }
+}

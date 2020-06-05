@@ -1,0 +1,123 @@
+@include media-breakpoint-down(lg) {
+  .module-template {
+    .side-navigation {
+      width: 0px;
+      max-width: $sidebar-width;
+      min-width: 0px;
+      transition: min-width 0.3s ease-in-out;
+      overflow-x: hidden;
+
+      &.visible {
+        min-width: $sidebar-sm-width;
+      }
+
+      .sidebar {
+        max-width: $sidebar-sm-width;
+
+        .sidebar-logo {
+          max-height: $navbar-sm-height;
+          height: $navbar-sm-height;
+        }
+
+        .sidebar-content {
+          height: calc(100% - #{$navbar-sm-height});
+        }
+      }
+
+      .sidepanel {
+        min-width: $sidebar-sm-width;
+      }
+    }
+
+    .content {
+      min-width: 100vw;
+      will-change: transform;
+      position: relative;
+      max-height: unset;
+      overflow-y: unset;
+
+      .sidebar-overlay {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        background-color: $black;
+
+        &.active {
+          opacity: 0.4;
+          z-index: $overlay-z-index;
+          visibility: visible;
+        }
+      }
+  
+      .navbar {
+        min-height: $navbar-sm-height;
+        position: sticky;
+        top: 0px;
+        padding-left: 0px;
+
+        .navbar-small-logo {
+          opacity: 1;
+          transition: opacity 0.3s ease-in-out;
+
+          &.is-hided {
+            opacity: 0;
+          }
+        }
+      }
+  
+      main {
+        padding: 0px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  #action-bar-render {
+    max-height: 0;
+    height: 100%;
+    transition: max-height 10s ease-in-out;
+    &.visible {
+      max-height: fit-content;
+    }
+    &.invisible {
+      max-height: 0;
+    }
+  }
+
+  .mobile-action-bar {
+    position: fixed;
+    bottom: 0px;
+    padding: 15px 5px;
+    background-color: $white;
+    left: 0px;
+    width: 100%;
+    z-index: 10;
+    box-shadow: 6px 0 6px 0 rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .module-template {
+    .side-navigation {
+      &.visible {
+        min-width: $sidebar-xs-width;
+      }
+
+      .sidebar {
+        max-width: $sidebar-xs-width;
+      }
+
+      .sidepanel {
+        min-width: $sidebar-xs-width;
+      }
+    }
+  }
+}

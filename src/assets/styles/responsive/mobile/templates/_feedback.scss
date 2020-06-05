@@ -1,0 +1,43 @@
+@include media-breakpoint-down(sm) {
+  .feedback {
+    .feedback-header {
+      height: 90px;
+      min-height: 90px;
+      justify-content: center;
+
+      h2 {
+        font-size: 25px;
+      }
+
+      .mobile-icon {
+        margin-right: 20px;
+
+        svg {
+          height: 29px;
+          width: 29px;
+        }
+      }
+    }
+
+    .feedback-content {
+      padding: 20px 0px 30px;
+      font-size: 18px;
+      height: calc(100vh - 100px);
+
+      .links {
+        border-radius: 0px;
+        margin: 40px -15px;
+
+        .link {
+          a, button {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .logo-footer {
+      bottom: 20px;
+    }
+  }
+}

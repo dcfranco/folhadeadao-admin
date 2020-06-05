@@ -1,0 +1,7 @@
+$rt-color-default: theme-color('secondary');
+$rt-color-info: theme-color('info');
+$rt-color-success: theme-color('primary');
+$rt-color-warning: theme-color('warning');
+$rt-color-error: theme-color('danger');
+
+$rt-color-progress-default: linear-gradient(to right, #{theme-color('primary')}, #5ac8fa, #007aff, #34aadc, #5856d6, #{theme-color('danger')});

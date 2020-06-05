@@ -1,0 +1,65 @@
+.alert {
+  position: absolute;
+  margin-bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: fit-content;
+  top: 10%;
+  display: flex;
+  padding-left: space-size(3);
+  border-radius: 4px;
+  padding-top: space-size(3);
+
+  &.no-absolute {
+    position: relative;
+    max-width: 100%;
+  }
+
+  .alert-close-button {
+    fill: $gray-500;
+    cursor: pointer;
+    transition: fill 0.1s ease-in-out;
+    &:hover {
+      fill: $black;
+    }
+  }
+
+  .alert-content {
+    padding-left: space-size(3);
+    color: $gray-500;
+    font-size: 16px;
+  }
+
+  &::before {
+    content: " ";
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+  
+  &.warning {
+    background-color: $warning-100;
+    .alert-icon {
+      color: $warning;
+    }
+
+    &::before {
+      background-color: $warning;
+    }
+  }
+
+  &.info {
+    background-color: $info-100;
+    .alert-icon {
+      color: $info;
+    }
+
+    &::before {
+      background-color: $info;
+    }
+  }
+}

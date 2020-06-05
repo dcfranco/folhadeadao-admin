@@ -1,0 +1,21 @@
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $size, $fontSize in $text-sizes {
+      .font-size#{$infix}-#{$size} { font-size: $fontSize !important; }
+    }
+
+    @each $size, $verticalAlign in $vertical-aligns {
+      .vertical-align#{$infix}-#{$size} { vertical-align: $verticalAlign; };
+    }
+
+    .text#{$infix}-uppercase {
+      text-transform: uppercase;
+    }
+
+    .text#{$infix}-default {
+      text-transform: unset;
+    }
+  }
+}

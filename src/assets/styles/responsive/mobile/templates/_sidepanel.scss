@@ -1,0 +1,17 @@
+@include media-breakpoint-down(sm) {
+  .sidepanel-template {
+    .sidepanel-header {
+      position: unset;
+      .sidepanel-action {
+        position: fixed;
+        right: 15px;
+        bottom: 15px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        top: unset;
+        font-size: text-size('3xl');
+      }
+    }
+  }
+}

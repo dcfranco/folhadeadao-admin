@@ -1,0 +1,12 @@
+@include media-breakpoint-down(md) {
+  .table-onidata {
+    border-collapse: separate;
+    tbody {
+      tr {
+        td {
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@import 'palettes/onidata';
+@import 'fonts/roboto';
+
+$theme-colors: (
+  'primary':    $primary-company,
+  "secondary":  $secondary-company,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $gray,
+  "dark":       $gray-500,
+  "company":    $blue,
+  "low-dark":   $gray-300,
+  "container":  $container,
+  "gray":       $gray-200,
+  "default":    $white,
+  "logo":       $logo-bg,
+);
+
+@import '~bootstrap/scss/functions';
+@import 'variables/variables';
+@import "~react-toastify/scss/main.scss";
+@import '~bootstrap/scss/bootstrap';
+@import "~react-circular-progressbar/dist/styles.css";
+@import 'functions/functions';
+@import 'utilities/utilities';
+@import 'components/components';
+@import 'templates/templates';
+@import 'pages/pages';
+@import 'responsive/responsive';

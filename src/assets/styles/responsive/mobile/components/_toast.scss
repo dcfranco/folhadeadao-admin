@@ -1,0 +1,12 @@
+@include media-breakpoint-down(sm) {
+  .Toastify__toast-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+
+    .Toastify__toast {    
+      max-width: 60vw;
+    }
+  }
+}

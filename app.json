@@ -1,0 +1,22 @@
+{
+  "name": "@central/client",
+  "scripts": {
+  },
+  "env": {
+    "REACT_APP_CREDITOR_BASE_URL": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/mars/create-react-app-buildpack.git"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Folha de Adão - Admin</title>
+    <style type="text/css">
+      @keyframes lds-ripple {
+        0% {
+          top: 96px;
+          left: 96px;
+          width: 0;
+          height: 0;
+          opacity: 1;
+        }
+        100% {
+          top: 18px;
+          left: 18px;
+          width: 156px;
+          height: 156px;
+          opacity: 0;
+        }
+      }
+  
+      @-webkit-keyframes lds-ripple {
+        0% {
+          top: 96px;
+          left: 96px;
+          width: 0;
+          height: 0;
+          opacity: 1;
+        }
+        100% {
+          top: 18px;
+          left: 18px;
+          width: 156px;
+          height: 156px;
+          opacity: 0;
+        }
+      }
+  
+      .lds-ripple {
+        position: relative;
+      }
+  
+      .lds-ripple div {
+        box-sizing: content-box;
+        position: absolute;
+        border-width: 4px;
+        border-style: solid;
+        opacity: 1;
+        border-radius: 50%;
+        -webkit-animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+      }
+  
+      .lds-ripple div:nth-child(1) {
+        border-color: #000;
+      }
+  
+      .lds-ripple div:nth-child(2) {
+        border-color: #000;
+        -webkit-animation-delay: -0.5s;
+        animation-delay: -0.5s;
+      }
+
+      .lds-ripple div:nth-child(3) {
+        border-color: #000;
+        -webkit-animation-delay: -1s;
+        animation-delay: -1s;
+      }
+  
+      .lds-ripple {
+        width: 200px !important;
+        height: 200px !important;
+        -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+        transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <div id="loading"></div>
+    <div id="dropdown-root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>

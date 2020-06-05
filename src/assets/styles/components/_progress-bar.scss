@@ -1,0 +1,45 @@
+.progressbar-container {
+  width: 94%;
+  background-color: #f0f1f4;
+  height: 20px;
+  border-radius: 5px;
+  margin-left: 3%;
+  overflow: hidden;
+
+  .progressbar-state {
+    height: 20px;
+    background-color: #53bc53;
+  }
+}
+
+.progressbar-labels {
+  display: flex;
+  font-size: 12px;
+  color: #d4d4d4;
+  padding: 2px 10px;
+}
+
+.progress-bar-component {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+
+  svg {
+    width: 45px;
+    height: 45px;
+  }
+  .CircularProgressbar-path{
+    stroke: #107fe8;
+  }
+  .icon {
+    position: absolute;
+    top: 20%;
+    left: 30%;
+
+    svg {
+      width: 17px;
+      height: 17px;
+    }
+  }
+}

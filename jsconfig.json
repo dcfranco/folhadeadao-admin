@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "module": "commonjs",
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "paths": {
+      "admin/*": ["./app/Admin/*"],
+      "seller/*": ["./app/Seller/*"],
+      "default/*": ["./app/Default/*"],
+      "components/*": ["./shared/components/*"],
+      "helpers/*": ["./shared/helpers/*"],
+      "hooks/*": ["./shared/hooks/*"],
+      "permissions/*": ["./shared/permissions/*"],
+      "templates/*": ["./shared/templates/*"],
+      "base/*": ["./shared/base/*"],
+      "models/*": ["./shared/models/*"],
+      "factories/*": ["./shared/factories/*"],
+      "form/*": ["./shared/form/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*"
+  ]
+}

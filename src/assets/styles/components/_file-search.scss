@@ -1,0 +1,14 @@
+.file-search {
+  position: relative;
+  display: inline-block;
+  
+  input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+    width: 0%;
+  }
+}

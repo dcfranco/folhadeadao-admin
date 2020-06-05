@@ -1,0 +1,16 @@
+.nav-tabs-container {
+  overflow-x: auto;
+  .nav-tabs {
+    flex-wrap: nowrap;
+    .nav-item {
+      .nav-link {
+        width: max-content;
+        cursor: pointer;
+        &.active {
+          font-weight: bold;
+          color: $black;
+        }
+      }
+    }
+  }
+}
