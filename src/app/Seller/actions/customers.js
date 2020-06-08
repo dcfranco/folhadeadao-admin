@@ -164,7 +164,7 @@ export function customerEditRequest(customerId, customer) {
       })
 
       await dispatch(customerCreateSuccess(response))
-      return response
+      return true
     } catch (errorMessage) {
       dispatch(customersAsyncFail(errorMessage))
       return null

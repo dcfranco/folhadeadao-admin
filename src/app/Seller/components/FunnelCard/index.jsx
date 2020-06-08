@@ -12,7 +12,7 @@ const FunnelCard = ({ title, cpf }) => {
       </div>
       <div className='d-flex flex-column w-70'>
         <span className='d-block text-left text-truncate'>{ title }</span>
-        <span className='d-block text-left text-truncate text-low-dark font-size-sm'>{ `CPF: ${cpf}` }</span>
+        <span className='d-block text-left text-truncate text-low-dark font-size-sm'>{ `E-mail: ${cpf}` }</span>
       </div>
     </div>
   )

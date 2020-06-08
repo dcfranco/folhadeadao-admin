@@ -4,54 +4,55 @@ import { useParams, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import SidePanelTemplate from 'templates/SidePanelTemplate'
 import SidePanelRender from 'components/SidePanelRender'
-import SellerCard from 'admin/components/SellerCard'
+import FunnelCard from 'seller/components/FunnelCard'
 import { bindPathParams } from 'helpers'
 
 const { Layout, Header, Title, BackLink, Cards, Card, Action } = SidePanelTemplate
 
 const UserViewSidePanel = () => {
   const { pages } = useStructure()
-  const { userId } = useParams()
+  const { funnelId } = useParams()
   const history = useHistory()
 
-  const users = useSelector(({ admin }) => admin.users.get('results'))
-  // const options = useSelector(({ admin }) => admin.users.get('options'))
-  // const pages = useSelector(({ admin }) => admin.users.getTotalPages())
+  const funnels = useSelector(({ seller }) => seller.funnels.get('results'))
+  // const options = useSelector(({ seller }) => seller.funnels.get('options'))
+  // const pages = useSelector(({ seller }) => seller.funnels.getTotalPages())
   // const selectedPage = options.get('currentPageIndex')
 
-  const onUserCardClick = useCallback((user) => () => {
+  const onUserCardClick = useCallback((funnel) => () => {
     const route = bindPathParams({
-      userId: user.get('id')
-    }, pages.USERS.VIEW)
+      funnelId: funnel.get('id')
+    }, pages.FUNNELS.VIEW)
     history.push(route)
   }, [])
 
-  const onActionClick = useCallback(() => history.push(pages.USERS.NEW), [])
+  const onActionClick = useCallback(() => history.push(pages.FUNNELS.NEW), [])
 
   return (
     <SidePanelRender>
       <Layout>
         <Header>
-          <BackLink route={pages.USERS.INDEX}>
+          <BackLink route={pages.FUNNELS.INDEX}>
             Voltar
           </BackLink>
           <Title>
-            Usuários
+            Clientes
           </Title>
           <Action onClick={onActionClick}>
             +
           </Action>
         </Header>
-        { users.size > 0 ? (
+        { funnels.size > 0 ? (
           <Cards>
-            { users.map((user) => {
+            { funnels.map((funnel) => {
+              const customer = funnel.get('customer')
               return (
                 <Card
-                  key={user.get('id')}
-                  isActive={parseInt(user.get('id'), 10) === parseInt(userId, 10)}
-                  onClick={onUserCardClick(user)}
+                  key={funnel.get('id')}
+                  isActive={parseInt(funnel.get('id'), 10) === parseInt(funnelId, 10)}
+                  onClick={onUserCardClick(funnel)}
                 >
-                  <SellerCard title={user.getFullName()} cpf={user.get('cpf')} />
+                  <FunnelCard title={customer.getFullName()} cpf={customer.get('email')} />
                 </Card>
               )
             }) }

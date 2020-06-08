@@ -25,7 +25,7 @@ import { dateNormalizer, cpfNormalizer } from 'form/normalizers'
 export const formName = 'newEditUserForm'
 
 const UsersForm = (
-  { handleSubmit, submit, pristine, invalid, initialize, profile: { pages } }
+  { handleSubmit, submit, pristine, reset, invalid, initialize, profile: { pages } }
 ) => {
   const [isEditMode, toggleEditMode] = useState(false)
   const { showErrorToast, showSuccessToast } = useContext(ToastContext)
@@ -71,6 +71,14 @@ const UsersForm = (
     }
   }, [userId])
 
+  const setFocus = () => setTimeout(() => {
+    const { current: personalData } = personalDataRef
+    const input = personalData.querySelector('input')
+    if (input) {
+      input.focus()
+    }
+  })
+
   useEffect(() => {
     if (isEditMode && user) {
       initialUserValues.current = user
@@ -93,13 +101,7 @@ const UsersForm = (
         isSeller: false
       }))
     }
-    setTimeout(() => {
-      const { current: personalData } = personalDataRef
-      const input = personalData.querySelector('input')
-      if (input) {
-        input.focus()
-      }
-    })
+    setFocus()
   }, [isEditMode, user])
 
   const createSeller = useCallback(async (id) => {
@@ -131,6 +133,10 @@ const UsersForm = (
             message: 'Usuário criado com sucesso!'
           })
         }
+        setTimeout(() => {
+          reset()
+          setFocus()
+        })
       } else {
         showErrorToast({
           message: 'Favor corrigir os itens abaixo.'
@@ -318,7 +324,8 @@ UsersForm.propTypes = {
   initialize: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   pristine: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired
+  invalid: PropTypes.bool.isRequired,
+  reset: PropTypes.func.isRequired
 }
 
 export default reduxForm({

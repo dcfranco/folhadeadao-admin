@@ -180,7 +180,7 @@ export function userDeleteRequest(userId) {
     dispatch(appLoadSpinner())
 
     try {
-      const response = await service.api({
+      await service.api({
         path: '/users/:userId',
         method: 'DELETE',
         pathParams: {
@@ -190,7 +190,7 @@ export function userDeleteRequest(userId) {
 
       await dispatch(userDeleteSuccess())
       await dispatch(userResetSelected())
-      return response
+      return true
     } catch (errorMessage) {
       dispatch(usersAsyncFail(errorMessage))
       return null

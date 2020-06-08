@@ -61,7 +61,6 @@ function BaseRecord<O: Object = Object>(spec: O, name?: string): Class<IBaseReco
       const fractionaryValue: number = typeof field === 'string'
         ? Number.parseFloat(this.get<$Keys<O>>(field))
         : field
-      debugger
       return `${(abs ? fractionaryValue : (fractionaryValue / 100)).toFixed(0)}%`
     }
 

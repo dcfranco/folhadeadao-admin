@@ -62,7 +62,8 @@ const UsersView = ({ profile: { pages } }) => {
       showSuccessToast({
         message: 'Usuário removido com sucesso!'
       })
-      dispatch(userAsyncRequest(userId))
+      await dispatch(usersAsyncRequest())
+      history.push(pages.USERS.INDEX)
     } else {
       showErrorToast({
         message: 'Ocorreu um problema, tente novamente mais tarde'

@@ -1,8 +1,10 @@
-import React, { Fragment, useEffect, useCallback } from 'react'
+import React, { Fragment, useEffect, useCallback, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { BaseUrl } from 'configs'
 import Button from 'components/Button'
+import { ToastContext } from 'components/ToastProvider'
 import Cards, { Card, CardRow, CardTitle, CardContent, CardInfo, CardAction } from 'components/Cards'
 import { ColumnWrapper, ColumnLeft, Title, Container } from 'templates/PageTemplate'
 import { funnelsAsyncRequest, funnelsUpdatePage, funnelsUpdateFilters } from 'seller/actions/funnels'
@@ -11,10 +13,11 @@ import { bindPathParams } from 'helpers'
 import FunnelsSidePanel from 'seller/pages/Funnels/SidePanel'
 import FunnelsSearchForm from 'seller/components/FunnelsSearchForm'
 
-const total = 20
+export const total = 20
 
 const FunnelsList = ({ parent, profile: { pages: profilePages } }) => {
   const dispatch = useDispatch()
+  const { showSuccessToast } = useContext(ToastContext)
   const sellerId = useSelector((state) => state.user.getIn(['data', 'seller', 'id']))
   const funnels = useSelector(({ seller }) => seller.funnels.get('results'))
   const options = useSelector(({ seller }) => seller.funnels.get('options'))
@@ -38,18 +41,20 @@ const FunnelsList = ({ parent, profile: { pages: profilePages } }) => {
     dispatch(funnelsUpdatePage(page))
   }, [])
 
-  const onFunnelClick = useCallback(() => () => {
-    // const route = bindPathParams({
-    //   funnelId: funnel.get('id')
-    // }, profilePages.FUNNELS.VIEW)
-    // history.push(route)
-  }, [])
-
-  const onRemoveFunnel = useCallback((funnel) => () => {
+  const onFunnelClick = useCallback((funnel) => () => {
     const route = bindPathParams({
       funnelId: funnel.get('id')
     }, profilePages.FUNNELS.VIEW)
     history.push(route)
+  }, [])
+
+  const onCopyLinkFunnel = useCallback((funnel) => (event) => {
+    event.stopPropagation()
+    navigator.clipboard.writeText(`${BaseUrl}/${funnel.get('token')}`).then(() => {
+      showSuccessToast({
+        message: 'Link copiado para o clipboard!'
+      })
+    })
   }, [])
 
   return (
@@ -81,8 +86,8 @@ const FunnelsList = ({ parent, profile: { pages: profilePages } }) => {
                       { customers.getFullName() }
                     </CardTitle>
                     <CardAction>
-                      <Button className='btn btn-light btn-sm' onClick={onRemoveFunnel(funnel)}>
-                        Remover
+                      <Button className='btn btn-light btn-sm' onClick={onCopyLinkFunnel(funnel)}>
+                        Copiar Link
                       </Button>
                     </CardAction>
                   </CardRow>

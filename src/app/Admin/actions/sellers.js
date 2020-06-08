@@ -176,7 +176,7 @@ export function sellerDeleteRequest(sellerId) {
     dispatch(appLoadSpinner())
 
     try {
-      const response = await service.api({
+      await service.api({
         path: '/sellers/:sellerId',
         method: 'DELETE',
         pathParams: {
@@ -186,7 +186,7 @@ export function sellerDeleteRequest(sellerId) {
 
       await dispatch(sellerDeleteSuccess())
       await dispatch(sellerResetSelected())
-      return response
+      return true
     } catch (errorMessage) {
       dispatch(sellersAsyncFail(errorMessage))
       return null

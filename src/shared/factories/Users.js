@@ -9,6 +9,7 @@ export default class UsersFactory {
 
     let request = values
     request = request.set('birthday', moment(values.get('birthday'), 'DD/MM/YYYY').toISOString())
+    request = request.set('isBlocked', false)
     request = request.delete('isSeller')
     return request
   }

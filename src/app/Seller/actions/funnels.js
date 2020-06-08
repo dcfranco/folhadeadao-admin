@@ -195,7 +195,7 @@ export function funnelDeleteRequest(funnelId) {
     dispatch(appLoadSpinner())
 
     try {
-      const response = await service.api({
+      await service.api({
         path: '/funnel-tokens/:funnelId',
         method: 'DELETE',
         pathParams: {
@@ -205,7 +205,7 @@ export function funnelDeleteRequest(funnelId) {
 
       await dispatch(funnelDeleteSuccess())
       await dispatch(funnelResetSelected())
-      return response
+      return true
     } catch (errorMessage) {
       dispatch(funnelsAsyncFail(errorMessage))
       return null
