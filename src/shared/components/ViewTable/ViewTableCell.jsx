@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 const ViewTableCell = ((props) => {
-  const { className, label, value, children,
+  const { className, label, value, children, onClick,
     noBorderLeft, borderColor, noFullWidth, valueClassName } = props
   return (
     <div
@@ -13,6 +13,7 @@ const ViewTableCell = ((props) => {
     >
       { label && (<div className='font-size-sm text-black-50'>{ label }</div>) }
       <div
+        onClick={onClick}
         className={classNames('ml-n3 pl-3 text-truncate', {
           'border-md-left': !noBorderLeft
         }, borderColor, valueClassName)}
@@ -35,6 +36,7 @@ ViewTableCell.propTypes = {
   valueClassName: PropTypes.string,
   noBorderLeft: PropTypes.bool,
   noFullWidth: PropTypes.bool,
+  onClick: PropTypes.func,
   borderColor: PropTypes.string
 }
 
@@ -46,6 +48,7 @@ ViewTableCell.defaultProps = {
   value: '-',
   noBorderLeft: false,
   noFullWidth: false,
+  onClick: () => {},
   borderColor: ''
 }
 

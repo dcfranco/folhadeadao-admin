@@ -111,11 +111,11 @@ export function funnelsAsyncRequest(sellerId, force = false) {
 export function funnelAsyncRequest(funnelId) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
-
     try {
       const response = await service.api({
         path: '/funnel-tokens/:funnelId',
         method: 'GET',
+        force: true,
         pathParams: {
           funnelId
         },

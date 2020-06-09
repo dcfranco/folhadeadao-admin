@@ -99,7 +99,7 @@ const FunnelsList = ({ parent, profile: { pages: profilePages } }) => {
                       { funnel.get('hasFinished') ? (
                         <strong className='text-green'>Finalizado</strong>
                       ) : (
-                        <strong className='text-danger'>{ `Completou ${funnel.getFormatedPercent(percent)}` }</strong>
+                        <strong className='text-danger'>{ `Completou ${percent >= 0 ? funnel.getFormatedPercent(percent) : '0%'}` }</strong>
                       )}
                     </CardInfo>
                   </CardContent>
