@@ -79,7 +79,8 @@ function Services(): TLoader<TServicesLoader> {
         body,
         cType,
         rType,
-        force
+        force,
+        isCount
       } = payload
 
       const headers: Object = {}
@@ -90,7 +91,8 @@ function Services(): TLoader<TServicesLoader> {
         headers['Content-Type'] = `${contentType}`
       }
 
-      const bindedQuery = queryParams ? `?filter=${encodeURIComponent(JSON.stringify(queryParams))}` : ''
+      // eslint-disable-next-line no-nested-ternary
+      const bindedQuery = queryParams ? (isCount ? `?where=${encodeURIComponent(JSON.stringify(queryParams))}` : `?filter=${encodeURIComponent(JSON.stringify(queryParams))}`) : ''
       const bindedPath = bindPathParams<R>(pathParams, path)
       // const transformedBody: T = contentType !== CONTENT_TYPE.JSON ? JSON.stringify(body) : body
 

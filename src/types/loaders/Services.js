@@ -16,6 +16,7 @@ export type TRequestPayload<T> = {|
   cType?: ContentType,
   rType?: ResponseType,
   force?: boolean,
+  isCount?: boolean,
 |}
 
 export type TService = <T, R>(payload: TRequestPayload<T>) => Promise<R>

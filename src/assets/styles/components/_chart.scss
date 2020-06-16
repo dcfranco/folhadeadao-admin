@@ -1,9 +1,21 @@
 .chart {
   margin: 0 auto;
   margin-top: space-size(4);
+  overflow: hidden;
 
   canvas {
     padding: space-size(3);
     background: $white;
+  }
+
+  .chart-title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    padding: 10px 15px;
+    background-color: $white;
+    border-bottom: 1px solid $gray-200;
   }
 }

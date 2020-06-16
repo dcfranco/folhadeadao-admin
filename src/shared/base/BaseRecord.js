@@ -40,7 +40,7 @@ function BaseRecord<O: Object = Object>(spec: O, name?: string): Class<IBaseReco
 
     getFormatedDate(field: $Keys<O>, format: string = 'DD/MM/YYYY'): string | '-' {
       if (this.get(field)) {
-        return moment(this.get(field), 'YYYY-MM-DD').format(format)
+        return moment(this.get(field)).format(format)
       }
       return '-'
     }

@@ -74,30 +74,44 @@ export function funnelsAsyncRequest(sellerId, force = false) {
     const offset = options.get('currentPageIndex') * options.get('limit')
 
     try {
-      const response = await service.api({
-        path: '/funnel-tokens',
-        method: 'GET',
-        force,
-        queryParams: {
-          limit: options.get('limit'),
-          offset,
-          where: {
+      const response = await Promise.all([
+        service.api({
+          path: '/funnel-tokens',
+          method: 'GET',
+          force,
+          queryParams: {
+            limit: options.get('limit'),
+            offset,
+            where: {
+              sellerId
+            },
+            include: [{
+              relation: 'funnelAnswers'
+            },
+            {
+              relation: 'seller'
+            },
+            {
+              relation: 'customer'
+            }]
+          },
+          body: null
+        }),
+        service.api({
+          path: '/funnel-tokens/count',
+          method: 'GET',
+          force,
+          isCount: true,
+          queryParams: {
             sellerId
           },
-          include: [{
-            relation: 'funnelAnswers'
-          },
-          {
-            relation: 'seller'
-          },
-          {
-            relation: 'customer'
-          }]
-        },
-        body: null
-      })
+          body: null
+        })
+      ])
 
-      await dispatch(funnelsAsyncSuccess(response))
+      const [data, { count }] = response
+
+      await dispatch(funnelsAsyncSuccess({ data, count }))
       return response
     } catch (errorMessage) {
       dispatch(funnelsAsyncFail(errorMessage))

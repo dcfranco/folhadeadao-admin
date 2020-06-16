@@ -37,10 +37,11 @@ const actionsMap = {
     })
   },
   [FUNNELS_ASYNC_SUCCESS]: (state, action) => {
-    const { payload } = action
+    const { payload: { data, count } } = action
 
     return state.merge({
-      results: toEntityList(payload, Funnel)
+      count,
+      results: toEntityList(data, Funnel)
     })
   },
   [FUNNEL_RESET_SELECTED]: (state) => {

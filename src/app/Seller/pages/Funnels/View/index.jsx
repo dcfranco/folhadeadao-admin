@@ -506,6 +506,8 @@ const FunnelsView = ({ profile: { pages } }) => {
                   </TableRow>
                 )
               }
+
+              return null
             })}
           </TableBody>
         </Table>

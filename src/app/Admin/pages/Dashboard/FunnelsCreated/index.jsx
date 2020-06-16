@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react'
+import Chart from 'components/Chart'
 import { reportSellerAsyncRequest } from 'seller/actions/reports'
-import Layout, { ColumnWrapper, ColumnLeft, Title } from 'templates/PageTemplate'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDashboardFunnels } from 'seller/selectors/reports'
-import FunnelsCreated from './FunnelsCreated'
-import FunnelsFinished from './FunnelsFinished'
 
-const Dashboard = () => {
+const FunnelsCreated = () => {
   const dispatch = useDispatch()
   const sellerId = useSelector((state) => state.user.getIn(['data', 'seller', 'id']))
   const funnels = useSelector(({ seller }) => getDashboardFunnels(seller))
@@ -20,16 +18,19 @@ const Dashboard = () => {
   }
 
   return (
-    <Layout>
-      <ColumnWrapper className='mb-2 mt-4'>
-        <ColumnLeft>
-          <Title>Dashboard</Title>
-        </ColumnLeft>
-      </ColumnWrapper>
-      <FunnelsCreated />
-      <FunnelsFinished />
-    </Layout>
+    <Chart
+      title='Links gerados por dia'
+      data={{
+        labels: Object.keys(funnels),
+        datasets: [{
+          label: 'Links',
+          backgroundColor: '#DBBC7C',
+          data: Object.values(funnels).map((v) => v.length),
+          barPercentage: 0.2
+        }]
+      }}
+    />
   )
 }
 
-export default Dashboard
+export default FunnelsCreated
