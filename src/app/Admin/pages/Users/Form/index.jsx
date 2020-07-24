@@ -6,7 +6,7 @@ import UserInfo from 'components/UserInfo'
 import FormContent, { Row, Element } from 'components/FormContent'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
-import { userCreateRequest, userAsyncRequest, userResetSelected,
+import { userAsyncRequest, userResetSelected,
   userEditRequest } from 'admin/actions/users'
 import { sellerCreateRequest, sellerDeleteRequest } from 'admin/actions/sellers'
 import { Map } from 'immutable'
@@ -25,7 +25,7 @@ import { dateNormalizer, cpfNormalizer } from 'form/normalizers'
 export const formName = 'newEditUserForm'
 
 const UsersForm = (
-  { handleSubmit, submit, pristine, reset, invalid, initialize, profile: { pages } }
+  { handleSubmit, submit, pristine, invalid, initialize, profile: { pages } }
 ) => {
   const [isEditMode, toggleEditMode] = useState(false)
   const { showErrorToast, showSuccessToast } = useContext(ToastContext)
@@ -112,37 +112,7 @@ const UsersForm = (
   }, [])
 
   const onSubmit = useCallback(async (values) => {
-    if (!userId) {
-      const request = UsersFactory.createRequest(values)
-      const response = await dispatch(userCreateRequest(request))
-      if (response) {
-        if (values.get('isSeller')) {
-          const { id } = response
-          const sellerResponse = await createSeller(id)
-          if (sellerResponse) {
-            showSuccessToast({
-              message: 'Representante criado com sucesso!'
-            })
-          } else {
-            showSuccessToast({
-              message: 'Usuário criado com sucesso mas ocorreu um problema ao criá-lo como representante!'
-            })
-          }
-        } else {
-          showSuccessToast({
-            message: 'Usuário criado com sucesso!'
-          })
-        }
-        setTimeout(() => {
-          reset()
-          setFocus()
-        })
-      } else {
-        showErrorToast({
-          message: 'Favor corrigir os itens abaixo.'
-        })
-      }
-    } else {
+    if (userId) {
       const { current: initialUser } = initialUserValues
 
       if (initialUser.get('isSeller') && !values.get('isSeller')) {
@@ -324,8 +294,7 @@ UsersForm.propTypes = {
   initialize: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   pristine: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
-  reset: PropTypes.func.isRequired
+  invalid: PropTypes.bool.isRequired
 }
 
 export default reduxForm({

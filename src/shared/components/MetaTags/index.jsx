@@ -17,11 +17,12 @@ const MetaTags = ({
 }) => {
   return (
     <Helmet>
-      <title>{ `${metaTitle} | ${metaTitleSuffix} | ONIDATA` }</title>
+      <title>{ `${metaTitle} | ${metaTitleSuffix} | Folha de Adão` }</title>
       <meta name='description' content={metaDescription} />
       <meta name='keywords' content={metaKeywords} />
       <link rel='canonical' href={`${BaseUrl}${canonicalPath}`} />
       <meta name='robots' content={getRobotsValue(shouldBeIndexed)} />
+      <meta name='francosId' content='FR001' />
     </Helmet>
   )
 }

@@ -1,7 +1,7 @@
 // @flow
 import type { List } from 'immutable'
 import type { BaseRecordOf } from 'base/BaseRecord'
-import type { TCustomer } from './Customer'
+import type { TUserClient } from './UserClient'
 import type { TSeller } from './Seller'
 
 export type TFunnel = {
@@ -11,9 +11,9 @@ export type TFunnel = {
   +hasFinished: ?boolean,
   +token: ?string,
   +funnelId: ?any,
-  +customerId: ?any,
+  +userClientId: ?any,
   +sellerId: ?any,
-  +customer: ?BaseRecordOf<TCustomer>,
+  +userClient: ?BaseRecordOf<TUserClient>,
   +seller: ?BaseRecordOf<TSeller>,
   +funnelAnswers: ?List<Object>
 }

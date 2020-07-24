@@ -59,6 +59,13 @@ export default function BaseList<O: Object>(
       const selected = this.get('selected')
       return this.set('selected', selected.push(value))
     }
+
+    getAsSelectList(label, value) {
+      return this.get('results').map((rec) => ({
+        label: rec.get(label),
+        value: rec.get(value)
+      })).toJS()
+    }
   }
 
   return new CBaseList(defaultValues)

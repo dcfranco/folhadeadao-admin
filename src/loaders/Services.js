@@ -86,7 +86,6 @@ function Services(): TLoader<TServicesLoader> {
       const headers: Object = {}
       const contentType: ContentType = cType || CONTENT_TYPE.JSON
       const responseType: ResponseType = rType || RESPONSE_TYPE.JSON
-
       if (contentType !== CONTENT_TYPE.MULTIPART) {
         headers['Content-Type'] = `${contentType}`
       }
@@ -150,6 +149,9 @@ function Services(): TLoader<TServicesLoader> {
 
       const api = await axios.create({
         baseURL: `${ApiUrl}`,
+        onUploadProgress: (o) => {
+          console.log(o)
+        },
         transformRequest: [
           (data, headers) => {
             const {

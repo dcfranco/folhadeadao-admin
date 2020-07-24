@@ -2,8 +2,8 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { forwardRef } from 'react'
 import { useSelector } from 'react-redux'
-import Input from './node_modules/components/Input'
-import InputError from './node_modules/components/InputError'
+import Input from 'components/Input'
+import InputError from 'components/InputError'
 
 const ReduxFormInput = forwardRef((props, ref) => {
   const {

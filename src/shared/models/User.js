@@ -1,33 +1,24 @@
 // @flow
 import BaseRecord from 'base/BaseRecord'
 import { toEntityList } from 'base/BaseList'
-import Seller from 'models/Seller'
 import UserProfile from 'models/UserProfile'
 import { EProfileKeys } from 'constants/profile'
-import type { TUserProfile } from './types/UserProfile'
-import type { TUser } from './types/User'
 
-const defaultValues: TUser = {
+const defaultValues = {
   id: null,
-  firstName: null,
-  lastName: null,
+  name: null,
   email: null,
-  genre: null,
-  cpf: null,
   username: null,
   lastLogin: null,
-  birthday: null,
   isBlocked: false,
   isAdmin: false,
   isSeller: false,
-  seller: null,
   profiles: toEntityList([], UserProfile)
 }
 
-export default class User extends BaseRecord<TUser>(defaultValues, 'User') {
-  constructor(values: Object) {
-    const profilesArr: TUserProfile[] = []
-    const isSeller = !!(values && values.seller)
+export default class User extends BaseRecord(defaultValues, 'User') {
+  constructor(values, isSeller) {
+    const profilesArr = []
 
     if (values && values.isAdmin) {
       profilesArr.push({ id: 1, name: 'Administrador', type: EProfileKeys.ADMIN, permissions: [] })
@@ -39,7 +30,6 @@ export default class User extends BaseRecord<TUser>(defaultValues, 'User') {
     super({
       ...values,
       isSeller,
-      seller: isSeller ? new Seller(values.seller) : defaultValues.seller,
       profiles: toEntityList(profilesArr, UserProfile)
     })
   }

@@ -6,24 +6,69 @@ import UserInfo from 'components/UserInfo'
 import FormContent, { Row, Element } from 'components/FormContent'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
-import { sellerCreateRequest, sellerAsyncRequest, sellerResetSelected,
-  sellerEditRequest } from 'admin/actions/sellers'
+import {
+  sellerCreateRequest,
+  sellerAsyncRequest,
+  sellerResetSelected,
+  sellerEditRequest
+} from 'admin/actions/sellers'
 import { Map } from 'immutable'
-
 import { ToastContext } from 'components/ToastProvider'
 import Button from 'components/Button'
 import ReduxFormSelect from 'components/ReduxFormSelect'
 import ReduxFormInput from 'components/ReduxFormInput'
+import ReduxFormInputComplete from 'components/ReduxFormInputComplete'
 import { required, cpfValidator, dateRequired } from 'form/validators'
-import { dateNormalizer, numbersNormalizer,
-  cpfNormalizer } from 'form/normalizers'
+import { dateNormalizer, numbersNormalizer, cpfNormalizer } from 'form/normalizers'
 
 export const formName = 'newEditSellerForm'
 
-const SellersForm = (
-  { handleSubmit, submit, pristine, invalid, initialize, profile: { pages } }
-) => {
+const languages = [
+  {
+    name: 'C',
+    year: 1972
+  },
+  {
+    name: 'C',
+    year: 1972
+  },
+  {
+    name: 'C',
+    year: 1972
+  },
+  {
+    name: 'C',
+    year: 1972
+  },
+  {
+    name: 'C',
+    year: 1972
+  },
+  {
+    name: 'C',
+    year: 1972
+  },
+  {
+    name: 'C',
+    year: 1972
+  },
+  {
+    name: 'Elm',
+    year: 2012
+  }
+]
+
+const SellersForm = ({
+  handleSubmit,
+  submit,
+  pristine,
+  invalid,
+  initialize,
+  profile: { pages }
+}) => {
   const [isEditMode, toggleEditMode] = useState(false)
+  const [suggestionsFilter, updateSuggestionsFilter] = useState([])
+  const [suggestions, updateSuggestions] = useState(languages)
   const { showErrorToast, showSuccessToast } = useContext(ToastContext)
   const { sellerId } = useParams()
   const seller = useSelector(({ admin }) => admin.sellers.getIn(['options', 'selected']))
@@ -40,10 +85,22 @@ const SellersForm = (
     history.push(pages.SELLERS.INDEX)
   }, [])
 
-  useEffect(() => () => {
-    toggleEditMode(false)
-    dispatch(sellerResetSelected())
-  }, [])
+  useEffect(
+    () => () => {
+      toggleEditMode(false)
+      dispatch(sellerResetSelected())
+    },
+    []
+  )
+
+  useEffect(() => {
+    if (isEditMode) {
+      updateSuggestions(languages)
+      // dispatch(ecommerceUsersAsyncRequest()).then((r) =>
+      // Array.isArray(r) ? updateSuggestions(r) : updateSuggestions([])
+      // )
+    }
+  }, [isEditMode, dispatch])
 
   const onCancel = useCallback(() => {
     history.goBack()
@@ -69,14 +126,16 @@ const SellersForm = (
 
   useEffect(() => {
     if (isEditMode && seller) {
-      initialize(new Map({
-        firstName: seller.getIn(['user', 'firstName']),
-        lastName: seller.getIn(['user', 'lastName']),
-        email: seller.getIn(['user', 'email']),
-        username: seller.getIn(['user', 'username']),
-        isBlocked: seller.getIn(['user', 'isBlocked']),
-        isAdmin: seller.getIn(['user', 'isAdmin'])
-      }))
+      initialize(
+        new Map({
+          firstName: seller.getIn(['user', 'firstName']),
+          lastName: seller.getIn(['user', 'lastName']),
+          email: seller.getIn(['user', 'email']),
+          username: seller.getIn(['user', 'username']),
+          isBlocked: seller.getIn(['user', 'isBlocked']),
+          isAdmin: seller.getIn(['user', 'isAdmin'])
+        })
+      )
       setTimeout(() => {
         const { current: personalData } = personalDataRef
         const input = personalData.querySelector('input')
@@ -87,31 +146,54 @@ const SellersForm = (
     }
   }, [isEditMode, seller])
 
-  const onSubmit = useCallback(async (values) => {
-    if (!sellerId) {
-      const response = await dispatch(sellerCreateRequest(values))
-      if (response) {
-        showSuccessToast({
-          message: 'Representante criado com sucesso!'
-        })
+  const onSubmit = useCallback(
+    async (values) => {
+      if (!sellerId) {
+        const response = await dispatch(sellerCreateRequest(values))
+        if (response) {
+          showSuccessToast({
+            message: 'Representante criado com sucesso!'
+          })
+        } else {
+          showErrorToast({
+            message: 'Favor corrigir os itens abaixo.'
+          })
+        }
       } else {
-        showErrorToast({
-          message: 'Favor corrigir os itens abaixo.'
-        })
+        const response = await dispatch(sellerEditRequest(sellerId, values))
+        if (response) {
+          showSuccessToast({
+            message: 'Representante alterado com sucesso!'
+          })
+        } else {
+          showErrorToast({
+            message: 'Favor corrigir os itens abaixo.'
+          })
+        }
       }
-    } else {
-      const response = await dispatch(sellerEditRequest(sellerId, values))
-      if (response) {
-        showSuccessToast({
-          message: 'Representante alterado com sucesso!'
-        })
-      } else {
-        showErrorToast({
-          message: 'Favor corrigir os itens abaixo.'
-        })
-      }
-    }
-  }, [sellerId])
+    },
+    [sellerId]
+  )
+
+  const onSuggestionsFetchRequested = useCallback(
+    async ({ value }) => {
+      const inputValue = value.trim().toLowerCase()
+      const inputLength = inputValue.length
+
+      const nSuggestions = inputLength === 0
+        ? []
+        : suggestions.filter(
+          (item) => item.name.toLowerCase().slice(0, inputLength) === inputValue
+        )
+
+      updateSuggestionsFilter(nSuggestions)
+    },
+    [suggestions, updateSuggestionsFilter]
+  )
+
+  const onSuggestionsClearRequested = useCallback(() => {
+    updateSuggestionsFilter([])
+  }, [updateSuggestionsFilter])
 
   return (
     <Fragment>
@@ -123,7 +205,7 @@ const SellersForm = (
             infoClassName='font-weight-lighter text-low-dark'
             fullName={isEditMode ? seller.getFullName() : 'Novo Representante'}
           >
-            { isEditMode && (`CPF: ${seller.getIn(['user', 'cpf'])}`) }
+            {isEditMode && `CPF: ${seller.getIn(['user', 'cpf'])}`}
           </UserInfo>
         </ColumnLeft>
         <ColumnRight isActionBar={true}>
@@ -136,7 +218,7 @@ const SellersForm = (
         </ColumnRight>
       </ColumnWrapper>
       <Container isWhiteBackground={true} autofocus={true}>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form autoComplete='new-password' onSubmit={handleSubmit(onSubmit)}>
           <FormContent title='Dados pessoais' ref={personalDataRef}>
             <Row>
               <Element lg='6'>
@@ -234,6 +316,22 @@ const SellersForm = (
                   placeholder='Estado Civil'
                   component={ReduxFormSelect}
                   options={[]}
+                />
+              </Element>
+            </Row>
+            <Row>
+              <Element lg='4'>
+                <Field
+                  type='text'
+                  name='daf'
+                  label='Select'
+                  suggestions={suggestionsFilter}
+                  onSuggestionsClearRequested={onSuggestionsClearRequested}
+                  onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+                  id='Select'
+                  placeholder='Select'
+                  component={ReduxFormInputComplete}
+                  validate={[required]}
                 />
               </Element>
             </Row>

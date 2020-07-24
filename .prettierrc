@@ -5,5 +5,7 @@
   "semi": false,
   "jsxSingleQuote": true,
   "htmlWhitespaceSensitivity":"strict",
-  "parser": "flow"
+  "parser": "flow",
+  "proseWrap": "never",
+  "printWidth": 100
 }

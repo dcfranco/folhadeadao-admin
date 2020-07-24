@@ -9,9 +9,11 @@ const Container = ({ children, className, isWhiteBackground, autofocus }) => {
     if (autofocus) {
       setTimeout(() => {
         const { current: container } = containerRef
-        const input = container.querySelector('input, select')
-        if (input) {
-          input.focus()
+        if (container) {
+          const input = container.querySelector('input, select')
+          if (input) {
+            input.focus()
+          }
         }
       })
     }

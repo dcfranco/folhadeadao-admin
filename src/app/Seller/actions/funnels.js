@@ -92,7 +92,7 @@ export function funnelsAsyncRequest(sellerId, force = false) {
               relation: 'seller'
             },
             {
-              relation: 'customer'
+              relation: 'userClient'
             }]
           },
           body: null
@@ -141,7 +141,7 @@ export function funnelAsyncRequest(funnelId) {
             relation: 'seller'
           },
           {
-            relation: 'customer'
+            relation: 'userClient'
           }]
         }
       })

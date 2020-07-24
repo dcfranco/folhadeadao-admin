@@ -39,7 +39,7 @@ const cacheGroups = themeFileNames.reduce((cg, theme) => {
         return m.constructor.name === 'CssModule' && recursiveIssuer(m) === name
       },
       chunks: 'all',
-      enforce: true
+      enforce: false
     },
   }
 }, {});

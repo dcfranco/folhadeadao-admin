@@ -26,25 +26,34 @@
       }
     }
 
-    .sidepanel-action {
+    .sidepanel-actions {
       position: absolute;
       display: flex;
-      justify-content: center;
-      align-items: center;
       right: 15px;
       top: 10px;
-      border-radius: 40px;
-      width: 40px;
-      height: 40px;
-      color: $white;
-      background-color: theme-color('primary');
-      box-shadow: 0 3px 6px 0 rgba($black, 0.16);
-      cursor: pointer;
-      font-size: text-size('2xl');
-      @include no-select();
+      justify-content: flex-end;
+      align-items: center;
+      
+      .sidepanel-action {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 40px;
+        &:not(:last-child) {
+          margin-right: space-size(2);
+        }
+        width: 40px;
+        height: 40px;
+        color: $white;
+        background-color: theme-color('primary');
+        box-shadow: 0 3px 6px 0 rgba($black, 0.16);
+        cursor: pointer;
+        font-size: text-size('2xl');
+        @include no-select();
 
-      &:active {
-        box-shadow: none;
+        &:active {
+          box-shadow: none;
+        }
       }
     }
   }
@@ -101,13 +110,18 @@
     &:hover {
       background-color: rgba(theme-color('primary'), 0.3);
     }
-  
     span {
       color: theme-color('primary');
     }
+
+    &.disabled {
+      &:hover {
+        background-color: unset
+      }
+    }
   
     &.active {
-      background-color: rgba(theme-color('primary'), 0.9);;
+      background-color: rgba(theme-color('primary'), 1);;
   
       span {
         color: $white !important;
@@ -147,6 +161,12 @@
         background-color: rgba(theme-color('warning'), 0.3);
       }
 
+      &.disabled {
+        &:hover {
+          background-color: unset
+        }
+      }
+
       span {
         color: theme-color('warning');
       }
@@ -156,6 +176,33 @@
 
         &::before {
           border-color: theme-color('warning');
+        }
+      }
+    }
+    &.danger {
+      &::after {
+        background-color: theme-color('danger');
+      }
+
+      &:hover {
+        background-color: rgba(theme-color('danger'), 0.3);
+      }
+
+      &.disabled {
+        &:hover {
+          background-color: unset
+        }
+      }
+
+      span {
+        color: theme-color('danger');
+      }
+
+      &.active {
+        background-color: rgba(theme-color('danger'), 0.9);
+
+        &::before {
+          border-color: theme-color('danger');
         }
       }
     }

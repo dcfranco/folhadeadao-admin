@@ -17,7 +17,7 @@ import {
 } from 'templates/PageTemplate'
 import ViewTable, { ViewTableRow, ViewTableCell } from 'components/ViewTable'
 import { ToastContext } from 'components/ToastProvider'
-import { customerDeleteRequest } from 'seller/actions/customers'
+import { userClientDeleteRequest } from 'seller/actions/userClients'
 import {
   funnelsAsyncRequest,
   funnelAsyncRequest,
@@ -305,7 +305,7 @@ const FunnelsView = ({ profile: { pages } }) => {
     toggleDeleteModal(false)
     const response = await dispatch(funnelDeleteRequest(funnel.get('id')))
     if (response) {
-      await dispatch(customerDeleteRequest(funnel.getIn(['customer', 'id'])))
+      await dispatch(userClientDeleteRequest(funnel.getIn(['userClient', 'id'])))
       showSuccessToast({
         message: 'Acesso removido com sucesso!'
       })
@@ -340,12 +340,12 @@ const FunnelsView = ({ profile: { pages } }) => {
     return null
   }
 
-  const customer = funnel.get('customer')
-  if (!customer) {
+  const userClient = funnel.get('userClient')
+  if (!userClient) {
     return null
   }
 
-  const fullname = customer.getFullName()
+  const fullname = userClient.getFullName()
   const funnelAnswers = funnel.get('funnelAnswers')
   const hasAccess = funnelAnswers.size > 0
   const hasFinished = parseInt(funnel.get('currentQuestion'), 10) >= total
@@ -417,7 +417,7 @@ const FunnelsView = ({ profile: { pages } }) => {
             infoClassName='text-low-dark'
             fullName={fullname}
           >
-            {`Email: ${customer.get('email')}`}
+            {`Email: ${userClient.get('email')}`}
           </UserInfo>
         </ColumnLeft>
       </ColumnWrapper>
@@ -428,19 +428,19 @@ const FunnelsView = ({ profile: { pages } }) => {
             <ViewTableCell
               className='w-md-25'
               label='E-mail'
-              value={customer.get('email')}
+              value={userClient.get('email')}
             />
             <ViewTableCell
               className='w-md-25'
               label='Sexo'
-              value={customer.getGenre()}
+              value={userClient.getGenre()}
             />
           </ViewTableRow>
           <ViewTableRow>
             <ViewTableCell
               className='w-md-33'
               label='Celular'
-              value={customer.getFormatedPhone('phone')}
+              value={userClient.getFormatedPhone('phone')}
             />
             <ViewTableCell
               className='w-md-33'

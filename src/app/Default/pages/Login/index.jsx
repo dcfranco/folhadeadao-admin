@@ -43,7 +43,7 @@ const Login = ({ handleSubmit, profile: { pages } }: TPageProps) => {
   const [isPasswordEyeActive, togglePasswordEyeActive] = useState(false)
   const onSubmit = async values => {
     const response = await dispatch(
-      userAsyncRequest(values.get('email'), values.get('password'))
+      userAsyncRequest(values.get('username'), values.get('password'))
     )
     if (response) {
       setTimeout(() => history.push(pages.PROFILES))
@@ -64,13 +64,13 @@ const Login = ({ handleSubmit, profile: { pages } }: TPageProps) => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Field
               type='text'
-              placeholder='E-mail'
-              name='email'
-              id='email'
+              placeholder='Usuário'
+              name='username'
+              id='username'
               component={ReduxFormInput}
               className='form-control-lg'
               validate={required}
-              inputMode='email'
+              inputMode='username'
               hideError={true}
               isDetailError={true}
             />

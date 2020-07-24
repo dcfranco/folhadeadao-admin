@@ -74,7 +74,7 @@ const FunnelsList = ({ parent, profile: { pages: profilePages } }) => {
         { funnels.size > 0 ? (
           <Cards>
             { funnels.map((funnel) => {
-              const customers = funnel.get('customer')
+              const userClients = funnel.get('userClient')
               const percent = (parseInt(funnel.get('currentQuestion'), 10) * 100) / total
               return (
                 <Card
@@ -83,7 +83,7 @@ const FunnelsList = ({ parent, profile: { pages: profilePages } }) => {
                 >
                   <CardRow>
                     <CardTitle isAvatarVisible={true}>
-                      { customers.getFullName() }
+                      { userClients.getFullName() }
                     </CardTitle>
                     <CardAction>
                       <Button className='btn btn-light btn-sm' onClick={onCopyLinkFunnel(funnel)}>

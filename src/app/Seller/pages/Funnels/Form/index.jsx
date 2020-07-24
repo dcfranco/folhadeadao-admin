@@ -7,11 +7,11 @@ import FormContent, { Row, Element } from 'components/FormContent'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import { funnelCreateRequest, funnelResetSelected, funnelAsyncRequest } from 'seller/actions/funnels'
-import { customerCreateRequest, customerEditRequest } from 'seller/actions/customers'
+import { userClientCreateRequest, userClientEditRequest } from 'seller/actions/userClients'
 import moment from 'moment'
 import { BaseUrl } from 'configs'
 
-import CustomersFactory from 'factories/Customers'
+import UserClientsFactory from 'factories/UserClients'
 
 import { ToastContext } from 'components/ToastProvider'
 import Button from 'components/Button'
@@ -70,28 +70,28 @@ const FunnelsForm = (
     }
   }, [funnelId])
 
-  const createCustomer = useCallback(async (values) => {
-    const request = CustomersFactory.createRequest(values)
-    const response = await dispatch(customerCreateRequest(request))
+  const createUserClient = useCallback(async (values) => {
+    const request = UserClientsFactory.createRequest(values)
+    const response = await dispatch(userClientCreateRequest(request))
     return response
   }, [])
 
-  const editCustomer = useCallback(async (customerId, values) => {
-    const request = CustomersFactory.editRequest(values)
-    const response = await dispatch(customerEditRequest(customerId, request))
+  const editUserClient = useCallback(async (userClientId, values) => {
+    const request = UserClientsFactory.editRequest(values)
+    const response = await dispatch(userClientEditRequest(userClientId, request))
     return response
   }, [])
 
   useEffect(() => {
     if (isEditMode && funnel) {
-      const customer = funnel.get('customer')
+      const userClient = funnel.get('userClient')
       initialize(new Map({
-        id: customer.get('id'),
-        firstName: customer.get('firstName'),
-        lastName: customer.get('lastName'),
-        email: customer.get('email'),
-        genre: customer.get('genre'),
-        phone: phoneNormalizer(customer.get('phone'))
+        id: userClient.get('id'),
+        firstName: userClient.get('firstName'),
+        lastName: userClient.get('lastName'),
+        email: userClient.get('email'),
+        genre: userClient.get('genre'),
+        phone: phoneNormalizer(userClient.get('phone'))
       }))
     }
   }, [isEditMode, funnel])
@@ -99,12 +99,12 @@ const FunnelsForm = (
 
   const onSubmit = async (values) => {
     if (!funnelId) {
-      const customer = await createCustomer(values)
-      if (customer) {
+      const userClient = await createUserClient(values)
+      if (userClient) {
         const response = await dispatch(funnelCreateRequest({
           createdAt: moment().toISOString(),
           hasFinished: false,
-          customerId: customer.id,
+          userClientId: userClient.id,
           sellerId: sellerSession.get('id')
         }))
         if (response) {
@@ -121,8 +121,8 @@ const FunnelsForm = (
         }
       }
     } else {
-      const customer = await editCustomer(values.get('id'), values)
-      if (customer) {
+      const userClient = await editUserClient(values.get('id'), values)
+      if (userClient) {
         showSuccessToast({
           message: 'Informações salvas!'
         })

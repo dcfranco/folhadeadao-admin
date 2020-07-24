@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Input from 'components/Input'
+import classNames from 'classnames'
 
 const Checkbox = React.forwardRef((props, ref) => {
   const {
@@ -10,11 +11,12 @@ const Checkbox = React.forwardRef((props, ref) => {
     disabled,
     className,
     checked,
+    noMargin,
     label
   } = props
 
   return (
-    <label className='checkbox-container'>{ label }
+    <label className={classNames('checkbox-container', { 'mb-0': noMargin })}>{ label }
       <Input
         type='checkbox'
         checked={checked}
@@ -37,6 +39,7 @@ Checkbox.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   checked: PropTypes.any,
+  noMargin: PropTypes.bool,
   label: PropTypes.string
 }
 
@@ -44,6 +47,7 @@ Checkbox.defaultProps = {
   onChange: null,
   disabled: false,
   className: '',
+  noMargin: false,
   checked: false,
   label: ''
 }

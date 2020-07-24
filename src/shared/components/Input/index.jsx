@@ -20,13 +20,14 @@ const Input = React.forwardRef((props, ref) => {
     min,
     onKeyDown,
     onPaste,
-    maxLength
+    maxLength,
+    autoComplete
   } = props
 
   return (
     <Fragment>
       <input
-        autoComplete='true'
+        autoComplete={autoComplete}
         type={type}
         id={id}
         disabled={disabled}
@@ -67,6 +68,7 @@ Input.propTypes = {
   type: PropTypes.string,
   checked: PropTypes.any,
   inputMode: PropTypes.string,
+  autoComplete: PropTypes.string,
   tabIndex: PropTypes.number,
   min: PropTypes.number,
   maxLength: PropTypes.number
@@ -84,6 +86,7 @@ Input.defaultProps = {
   inputMode: 'text',
   tabIndex: null,
   onKeyPress: null,
+  autoComplete: 'true',
   min: null,
   onKeyDown: null,
   onPaste: null,

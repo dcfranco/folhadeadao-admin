@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 const ColumnLeft = ({ children, className }) => {
   return (
-    <div className={classNames('mr-auto', className)}>
+    <div className={classNames(className)}>
       { children }
     </div>
   )
@@ -16,7 +16,7 @@ ColumnLeft.propTypes = {
 }
 
 ColumnLeft.defaultProps = {
-  className: ''
+  className: 'mr-auto'
 }
 
 export default React.memo(ColumnLeft)

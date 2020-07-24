@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext, useCallback, useState } from 'react'
+import React, { Fragment, useEffect, useContext, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,23 +6,16 @@ import { useParams, useHistory } from 'react-router-dom'
 import { ColumnWrapper, ColumnLeft, ColumnRight, Container } from 'templates/PageTemplate'
 import ViewTable, { ViewTableRow, ViewTableCell } from 'components/ViewTable'
 import { ToastContext } from 'components/ToastProvider'
-import { sellerDeleteRequest } from 'admin/actions/sellers'
-import { usersAsyncRequest, userAsyncRequest, userResetSelected, userDeleteRequest } from 'admin/actions/users'
+import { usersAsyncRequest, userAsyncRequest, userResetSelected } from 'admin/actions/users'
 import UserInfo from 'components/UserInfo'
 import Button from 'components/Button'
 import { bindPathParams } from 'helpers'
-import CreateGenericConfirmModal from 'components/GenericConfirmModal'
 
 import UserViewSidePanel from './SidePanel'
 
-const ConfirmDeleteModal = CreateGenericConfirmModal({
-  confirmBtnClassName: 'btn-danger',
-  cancelOnClose: true
-})
 
 const UsersView = ({ profile: { pages } }) => {
-  const { showSuccessToast, showErrorToast } = useContext(ToastContext)
-  const [isDeleteModalOpen, toggleDeleteModal] = useState(false)
+  const { showErrorToast } = useContext(ToastContext)
   const { userId } = useParams()
   const history = useHistory()
   const dispatch = useDispatch()
@@ -51,33 +44,6 @@ const UsersView = ({ profile: { pages } }) => {
       })
     }
   }, [userId])
-
-  const onDeleteConfirm = useCallback(async () => {
-    toggleDeleteModal(false)
-    if (user.get('isSeller')) {
-      await dispatch(sellerDeleteRequest(user.getIn(['seller', 'id'])))
-    }
-    const response = await dispatch(userDeleteRequest(user.get('id')))
-    if (response) {
-      showSuccessToast({
-        message: 'Usuário removido com sucesso!'
-      })
-      await dispatch(usersAsyncRequest())
-      history.push(pages.USERS.INDEX)
-    } else {
-      showErrorToast({
-        message: 'Ocorreu um problema, tente novamente mais tarde'
-      })
-    }
-  }, [user, userId])
-
-  const onDeleteClose = useCallback(() => {
-    toggleDeleteModal(false)
-  }, [])
-
-  const onUserDeleteClick = useCallback(() => {
-    toggleDeleteModal(true)
-  }, [user])
 
   const onUserEditClick = useCallback(() => {
     const route = bindPathParams({
@@ -119,9 +85,6 @@ const UsersView = ({ profile: { pages } }) => {
           </div>
         </ColumnLeft>
         <ColumnRight isActionBar={true}>
-          <Button type='button' className='btn btn-link' onClick={onUserDeleteClick}>
-            Remover
-          </Button>
           <Button type='button' className='btn btn-default' onClick={onUserEditClick}>
             Editar
           </Button>
@@ -158,15 +121,6 @@ const UsersView = ({ profile: { pages } }) => {
           </ViewTableRow>
         </ViewTable>
       </Container>
-      <ConfirmDeleteModal
-        onConfirm={onDeleteConfirm}
-        onCancel={onDeleteClose}
-        isOpen={isDeleteModalOpen}
-      >
-        <span>
-          Deseja remover <strong>{ `${fullname}` }</strong>?
-        </span>
-      </ConfirmDeleteModal>
     </Fragment>
   )
 }

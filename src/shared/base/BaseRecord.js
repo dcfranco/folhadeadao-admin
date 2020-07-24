@@ -14,6 +14,8 @@ declare class IBaseRecord<O: Object = Object> extends RecordInstance<O> {
   getCleanValue(field: $Keys<O>): string;
   getGenre(): ?string;
   getAsMoment(field: $Keys<O>): ?Moment;
+  getBooleanAsYesOrNo(field: $Keys<O>): string;
+  getAsSelectObject(field: $Keys<O>, value: $Keys<O>, label: $Keys<O>): Object;
 }
 
 export type BaseRecordFactory<Values: Object> = Class<IBaseRecord<Values>>;
@@ -31,11 +33,19 @@ function BaseRecord<O: Object = Object>(spec: O, name?: string): Class<IBaseReco
       return ''
     }
 
-    getFullName(): ?string {
-      if (this.get('firstName') && this.get('lastName')) {
-        return `${this.get('firstName')} ${this.get('lastName')}`
+    getBooleanAsYesOrNo(field: $Keys<O>): string {
+      return this.get(field) ? 'Sim' : 'Não'
+    }
+
+    getAsSelectObject(field: $Keys<O>, value: $Keys<O>, label: $Keys<O>): Object {
+      return {
+        value: this.getIn([field, value]),
+        label: this.getIn([field, label])
       }
-      return ''
+    }
+
+    getFullName(): ?string {
+      return `${this.get('name')}`
     }
 
     getFormatedDate(field: $Keys<O>, format: string = 'DD/MM/YYYY'): string | '-' {

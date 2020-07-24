@@ -9,54 +9,54 @@ export const CUSTOMERS_UPDATE_FILTERS = 'SELLER/CUSTOMERS_UPDATE_FILTERS'
 export const CUSTOMER_CREATE_SUCCESS = 'SELLER/CUSTOMER_CREATE_SUCCESS'
 export const CUSTOMER_DELETE_SUCCESS = 'SELLER/CUSTOMER_DELETE_SUCCESS'
 
-function customersAsyncSuccess(customers) {
+function userClientsAsyncSuccess(userClients) {
   return {
     type: CUSTOMERS_ASYNC_SUCCESS,
-    payload: customers
+    payload: userClients
   }
 }
 
-function customerAsyncSuccess(customers) {
+function userClientAsyncSuccess(userClients) {
   return {
     type: CUSTOMER_ASYNC_SUCCESS,
-    payload: customers
+    payload: userClients
   }
 }
 
-function customersAsyncFail(error) {
+function userClientsAsyncFail(error) {
   return {
     type: CUSTOMERS_ASYNC_FAIL,
     payload: error
   }
 }
 
-function customerCreateSuccess(customer) {
+function userClientCreateSuccess(userClient) {
   return {
     type: CUSTOMER_CREATE_SUCCESS,
-    payload: customer
+    payload: userClient
   }
 }
 
-function customerDeleteSuccess() {
+function userClientDeleteSuccess() {
   return {
     type: CUSTOMER_DELETE_SUCCESS
   }
 }
 
-export function customerResetSelected() {
+export function userClientResetSelected() {
   return {
     type: CUSTOMER_RESET_SELECTED
   }
 }
 
-export function customersUpdatePage(page) {
+export function userClientsUpdatePage(page) {
   return {
     type: CUSTOMERS_UPDATE_PAGE,
     payload: page
   }
 }
 
-export function customersUpdateFilters(search) {
+export function userClientsUpdateFilters(search) {
   return {
     type: CUSTOMERS_UPDATE_FILTERS,
     payload: {
@@ -65,17 +65,17 @@ export function customersUpdateFilters(search) {
   }
 }
 
-export function customersAsyncRequest(force = false) {
+export function userClientsAsyncRequest(force = false) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
-    const { customers } = getState().seller
-    const options = customers.get('options')
+    const { userClients } = getState().seller
+    const options = userClients.get('options')
     const offset = options.get('currentPageIndex') * options.get('limit')
 
     try {
       const response = await service.api({
-        path: '/customers',
+        path: '/userClients',
         method: 'GET',
         force,
         queryParams: {
@@ -87,10 +87,10 @@ export function customersAsyncRequest(force = false) {
         body: null
       })
 
-      await dispatch(customersAsyncSuccess(response))
+      await dispatch(userClientsAsyncSuccess(response))
       return response
     } catch (errorMessage) {
-      dispatch(customersAsyncFail(errorMessage))
+      dispatch(userClientsAsyncFail(errorMessage))
       return null
     } finally {
       dispatch(appUnloadSpinner())
@@ -98,16 +98,16 @@ export function customersAsyncRequest(force = false) {
   }
 }
 
-export function customerAsyncRequest(customerId) {
+export function userClientAsyncRequest(userClientId) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
     try {
       const response = await service.api({
-        path: '/customers/:customerId',
+        path: '/userClients/:userClientId',
         method: 'GET',
         pathParams: {
-          customerId
+          userClientId
         },
         queryParams: {
           include: [{
@@ -116,10 +116,10 @@ export function customerAsyncRequest(customerId) {
         }
       })
 
-      await dispatch(customerAsyncSuccess(response))
+      await dispatch(userClientAsyncSuccess(response))
       return response
     } catch (errorMessage) {
-      dispatch(customersAsyncFail(errorMessage))
+      dispatch(userClientsAsyncFail(errorMessage))
       return null
     } finally {
       dispatch(appUnloadSpinner())
@@ -127,21 +127,21 @@ export function customerAsyncRequest(customerId) {
   }
 }
 
-export function customerCreateRequest(customer) {
+export function userClientCreateRequest(userClient) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
     try {
       const response = await service.api({
-        path: '/customers',
+        path: '/userClients',
         method: 'POST',
-        body: customer
+        body: userClient
       })
 
-      await dispatch(customerCreateSuccess(response))
+      await dispatch(userClientCreateSuccess(response))
       return response
     } catch (errorMessage) {
-      dispatch(customersAsyncFail(errorMessage))
+      dispatch(userClientsAsyncFail(errorMessage))
       return null
     } finally {
       dispatch(appUnloadSpinner())
@@ -149,24 +149,24 @@ export function customerCreateRequest(customer) {
   }
 }
 
-export function customerEditRequest(customerId, customer) {
+export function userClientEditRequest(userClientId, userClient) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
     try {
       const response = await service.api({
-        path: '/customers/:customerId',
+        path: '/userClients/:userClientId',
         method: 'PUT',
         pathParams: {
-          customerId
+          userClientId
         },
-        body: customer
+        body: userClient
       })
 
-      await dispatch(customerCreateSuccess(response))
+      await dispatch(userClientCreateSuccess(response))
       return true
     } catch (errorMessage) {
-      dispatch(customersAsyncFail(errorMessage))
+      dispatch(userClientsAsyncFail(errorMessage))
       return null
     } finally {
       dispatch(appUnloadSpinner())
@@ -174,24 +174,24 @@ export function customerEditRequest(customerId, customer) {
   }
 }
 
-export function customerDeleteRequest(customerId) {
+export function userClientDeleteRequest(userClientId) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
     try {
       const response = await service.api({
-        path: '/customers/:customerId',
+        path: '/userClients/:userClientId',
         method: 'DELETE',
         pathParams: {
-          customerId
+          userClientId
         }
       })
 
-      await dispatch(customerDeleteSuccess())
-      await dispatch(customerResetSelected())
+      await dispatch(userClientDeleteSuccess())
+      await dispatch(userClientResetSelected())
       return response
     } catch (errorMessage) {
-      dispatch(customersAsyncFail(errorMessage))
+      dispatch(userClientsAsyncFail(errorMessage))
       return null
     } finally {
       dispatch(appUnloadSpinner())

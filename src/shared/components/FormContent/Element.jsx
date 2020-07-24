@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 
-const FormContentElement = ({ children, sm, lg, xl, xxl }) => {
+const FormContentElement = ({ children, className, sm, lg, xl, xxl }) => {
   return (
     <div
       className={classNames({
@@ -10,7 +10,7 @@ const FormContentElement = ({ children, sm, lg, xl, xxl }) => {
         [`col-xl-${xl}`]: xl !== '',
         [`col-2xl-${xxl}`]: xxl !== '',
         [`col-${sm}`]: sm !== ''
-      })}
+      }, className)}
     >
       { children }
     </div>
@@ -22,14 +22,16 @@ FormContentElement.propTypes = {
   lg: PropTypes.string,
   sm: PropTypes.string,
   xl: PropTypes.string,
-  xxl: PropTypes.string
+  xxl: PropTypes.string,
+  className: PropTypes.string
 }
 
 FormContentElement.defaultProps = {
   sm: '12',
   lg: '',
   xl: '',
-  xxl: ''
+  xxl: '',
+  className: ''
 }
 
 export default React.memo(FormContentElement)

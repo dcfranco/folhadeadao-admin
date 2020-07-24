@@ -2,15 +2,29 @@
   .sidepanel-template {
     .sidepanel-header {
       position: unset;
-      .sidepanel-action {
+
+      .sidepanel-actions {
         position: fixed;
         right: 15px;
-        bottom: 15px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50px;
+        bottom: 80px;
         top: unset;
-        font-size: text-size('3xl');
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+       
+        .sidepanel-action {
+          &:not(:last-child) {
+            margin-right: 0px;
+            margin-bottom: space-size(2);
+          }
+          width: 50px;
+          height: 50px;
+          border-radius: 50px;
+          top: unset;
+          font-size: text-size('3xl');
+        }
       }
     }
   }

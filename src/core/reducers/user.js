@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import User from 'models/User'
+import UserAdmin from 'models/UserAdmin'
 import Base from 'base/Base'
 import UserProfile from 'models/UserProfile'
 import { Record } from 'immutable'
@@ -16,7 +17,8 @@ const REHYDRATE = 'persist/REHYDRATE'
 const UserOptions = new Record({
   authenticated: false,
   token: null,
-  selectedProfile: null
+  selectedProfile: null,
+  userAdmin: null
 })
 
 const initialState = new Base({
@@ -31,11 +33,14 @@ const actionsMap = {
     if (!action) {
       return state
     }
+
+    const { user: us, userAdmin } = action
     return state.merge({
-      data: new User({ ...action.user, seller: action.seller }),
+      data: new User({ ...us }, userAdmin && userAdmin.isSeller === 1),
       options: options
         .set('authenticated', true)
         .set('token', action.token)
+        .set('userAdmin', userAdmin && new UserAdmin(userAdmin))
     })
   },
   [USER_ASYNC_FAIL]: (state, action) => {

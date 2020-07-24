@@ -1,17 +1,17 @@
 import { Map } from 'immutable'
-import Customer from 'models/Customer'
+import UserClient from 'models/UserClient'
 import moment from 'moment'
 
-export default class CustomersFactory {
+export default class UserClientsFactory {
   static createRequest(values) {
     if (!values) {
       return new Map()
     }
 
     let request = new Map({ ...values.toJS(), createdAt: moment().toISOString() })
-    const customer = new Customer(request.toJS())
+    const userClient = new UserClient(request.toJS())
     if (request.get('phone')) {
-      request = request.set('phone', `${customer.getCleanValue('phone')}`)
+      request = request.set('phone', `${userClient.getCleanValue('phone')}`)
     }
 
     return request
@@ -23,9 +23,9 @@ export default class CustomersFactory {
     }
 
     let request = values
-    const customer = new Customer(request.toJS())
+    const userClient = new UserClient(request.toJS())
     if (request.get('phone')) {
-      request = request.set('phone', `${customer.getCleanValue('phone')}`)
+      request = request.set('phone', `${userClient.getCleanValue('phone')}`)
     }
 
     return request

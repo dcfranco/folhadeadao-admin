@@ -1,6 +1,6 @@
 import { Record } from 'immutable'
 import BaseList, { toEntityList } from 'base/BaseList'
-import Customer from 'models/Customer'
+import UserClient from 'models/UserClient'
 
 import {
   CUSTOMERS_ASYNC_SUCCESS,
@@ -8,39 +8,39 @@ import {
   CUSTOMERS_ASYNC_FAIL,
   CUSTOMERS_UPDATE_PAGE,
   CUSTOMER_RESET_SELECTED
-} from 'seller/actions/customers'
+} from 'seller/actions/userClients'
 
-const CustomersOptions = new Record({
+const UserClientsOptions = new Record({
   currentPageIndex: 0,
   limit: 16,
   selected: null
 })
 
-const CustomersFilters = new Record({
+const UserClientsFilters = new Record({
   search: null
 })
 
 const initialState = new BaseList({
   errorMessage: '',
   count: 0,
-  results: toEntityList([], Customer),
-  options: CustomersOptions(),
-  filters: CustomersFilters()
+  results: toEntityList([], UserClient),
+  options: UserClientsOptions(),
+  filters: UserClientsFilters()
 })
 
 const actionsMap = {
   [CUSTOMER_ASYNC_SUCCESS]: (state, action) => {
-    const { payload: customer } = action
+    const { payload: userClient } = action
     const options = state.get('options')
     return state.merge({
-      options: options.set('selected', new Customer(customer))
+      options: options.set('selected', new UserClient(userClient))
     })
   },
   [CUSTOMERS_ASYNC_SUCCESS]: (state, action) => {
     const { payload } = action
 
     return state.merge({
-      results: toEntityList(payload, Customer)
+      results: toEntityList(payload, UserClient)
     })
   },
   [CUSTOMER_RESET_SELECTED]: (state) => {
@@ -64,7 +64,7 @@ const actionsMap = {
   }
 }
 
-export default function customers(state = initialState, action = {}) {
+export default function userClients(state = initialState, action = {}) {
   const fn = actionsMap[action.type]
   return fn ? fn(state, action) : state
 }

@@ -1,7 +1,9 @@
 .form-group {
   .form-control {
-    &:not([value=""]):not(:focus):not(.is-invalid):not(.is-warning):not(.no-value) {
-      border-color: $gray-800;
+    border-width: 2px !important;;
+    box-shadow: none !important;
+    &:not([value=""]):not(:focus-within):not(:focus):not(.is-invalid):not(.is-warning):not(.no-value) {
+      border-color: $gray-800 !important;
     }
     &.has-rightAddon {
       padding-right: 40px;
@@ -9,10 +11,24 @@
     &.has-leftAddon {
       padding-left: 40px;
     }
-  }
 
-  .no-value {
-    color: $placeholder-gray !important;
+    &.is-invalid {
+      border-color: theme-color('danger') !important;
+    }
+
+    &:focus,
+    &:focus-within {
+      border-color: theme-color('primary') !important;
+    }
+
+    &:hover:not(:focus):not(.is-invalid):not(.is-warning):not(:focus-within) {
+      border-color: $gray-200 !important;
+    }
+
+    &.no-value:not(:focus):not(.is-invalid):not(.is-warning):not(:focus-within) {
+      color: $placeholder-gray !important;
+      border-color: $gray-200 !important;
+    }
   }
   
   .input-group {

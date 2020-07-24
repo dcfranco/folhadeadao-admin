@@ -1,6 +1,7 @@
 @include media-breakpoint-down(md) {
   .table-onidata {
     border-collapse: separate;
+    border-spacing: 0px;
     tbody {
       tr {
         td {

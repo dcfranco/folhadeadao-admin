@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 // TODO: Tooltip
-const SidePanelCard = ({ children, className, onClick, isActive }) => {
+const SidePanelCard = ({ children, disabled, className, onClick, isActive }) => {
   return (
     <button
       type='button'
+      disabled={disabled}
       className={classNames('btn sidepanel-card w-100 px-0 mb-2', className, {
-        'active': isActive
+        'active': isActive,
+        'disabled cursor-blocked': disabled
       })}
       onClick={onClick}
     >
@@ -22,13 +24,15 @@ SidePanelCard.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   // tooltip: PropTypes.string,
-  isActive: PropTypes.bool
+  isActive: PropTypes.bool,
+  disabled: PropTypes.bool
 }
 
 SidePanelCard.defaultProps = {
   className: '',
   onClick: null,
-  isActive: false
+  isActive: false,
+  disabled: false
   // tooltip: null,
 }
 

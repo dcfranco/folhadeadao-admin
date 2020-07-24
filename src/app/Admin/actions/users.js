@@ -37,12 +37,6 @@ function userCreateSuccess(user) {
   }
 }
 
-function userDeleteSuccess() {
-  return {
-    type: USER_DELETE_SUCCESS
-  }
-}
-
 export function userResetSelected() {
   return {
     type: USER_RESET_SELECTED
@@ -65,25 +59,26 @@ export function usersUpdateFilters(search) {
   }
 }
 
-export function usersAsyncRequest(force = false) {
+export function usersAsyncRequest() {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
     const { users } = getState().admin
     const options = users.get('options')
     const offset = options.get('currentPageIndex') * options.get('limit')
+    const user = getState().user.getIn(['options', 'userAdmin'])
 
     try {
       const response = await service.api({
-        path: '/users',
+        path: '/admins/:adminId/clients',
         method: 'GET',
-        force,
+        force: true,
+        pathParams: {
+          adminId: user.get('ID')
+        },
         queryParams: {
           limit: options.get('limit'),
-          offset,
-          include: [{
-            relation: 'seller'
-          }]
+          offset
         },
         body: null
       })
@@ -105,15 +100,10 @@ export function userAsyncRequest(userId) {
 
     try {
       const response = await service.api({
-        path: '/users/:userId',
+        path: '/user-clients/:userId',
         method: 'GET',
         pathParams: {
           userId
-        },
-        queryParams: {
-          include: [{
-            relation: 'seller'
-          }]
         }
       })
 
@@ -128,37 +118,16 @@ export function userAsyncRequest(userId) {
   }
 }
 
-export function userCreateRequest(user) {
+export function userEditRequest(adminId, userId, user) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
     try {
       const response = await service.api({
-        path: '/users',
-        method: 'POST',
-        body: user
-      })
-
-      await dispatch(userCreateSuccess(response))
-      return response
-    } catch (errorMessage) {
-      dispatch(usersAsyncFail(errorMessage))
-      return null
-    } finally {
-      dispatch(appUnloadSpinner())
-    }
-  }
-}
-
-export function userEditRequest(userId, user) {
-  return async (dispatch, getState, service) => {
-    dispatch(appLoadSpinner())
-
-    try {
-      const response = await service.api({
-        path: '/users/:userId',
-        method: 'PUT',
+        path: '/admins/:adminId/clients/:adminId',
+        method: 'PATCH',
         pathParams: {
+          adminId,
           userId
         },
         body: user
@@ -166,31 +135,6 @@ export function userEditRequest(userId, user) {
 
       await dispatch(userCreateSuccess(response))
       return response
-    } catch (errorMessage) {
-      dispatch(usersAsyncFail(errorMessage))
-      return null
-    } finally {
-      dispatch(appUnloadSpinner())
-    }
-  }
-}
-
-export function userDeleteRequest(userId) {
-  return async (dispatch, getState, service) => {
-    dispatch(appLoadSpinner())
-
-    try {
-      await service.api({
-        path: '/users/:userId',
-        method: 'DELETE',
-        pathParams: {
-          userId
-        }
-      })
-
-      await dispatch(userDeleteSuccess())
-      await dispatch(userResetSelected())
-      return true
     } catch (errorMessage) {
       dispatch(usersAsyncFail(errorMessage))
       return null

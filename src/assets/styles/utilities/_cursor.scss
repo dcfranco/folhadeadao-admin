@@ -2,6 +2,10 @@
   cursor: pointer;
 }
 
+.cursor-blocked {
+  cursor: not-allowed !important;
+}
+
 .cursor-default {
   cursor: default !important;
 }

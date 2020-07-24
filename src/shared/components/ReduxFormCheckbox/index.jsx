@@ -8,15 +8,17 @@ const ReduxFormCheckbox = forwardRef((props, ref) => {
     id,
     label,
     disabled,
-    className
+    className,
+    noMargin
   } = props
 
   return (
-    <div className='mt-3'>
+    <div className={noMargin ? 'mt-0' : 'mt-3'}>
       <Checkbox
         id={id || input.name}
         disabled={disabled}
         label={label}
+        noMargin={noMargin}
         checked={input.value}
         name={input.name}
         onChange={input.onChange}
@@ -32,7 +34,8 @@ ReduxFormCheckbox.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   disabled: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
+  noMargin: PropTypes.bool
 }
 
 ReduxFormCheckbox.defaultProps = {
@@ -40,7 +43,8 @@ ReduxFormCheckbox.defaultProps = {
   disabled: false,
   className: '',
   label: null,
-  id: null
+  id: null,
+  noMargin: false
 }
 
 export default ReduxFormCheckbox

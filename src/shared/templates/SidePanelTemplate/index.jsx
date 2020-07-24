@@ -9,6 +9,7 @@ import SidePanelBackLink from './BackLink'
 import SidePanelAction from './Action'
 import SidePanelCards from './Cards'
 import SidePanelCard from './Cards/Card'
+import SidePanelActions from './Actions'
 
 const Layout = memo(({ children }) => {
   return (
@@ -29,6 +30,7 @@ export default {
   Links: SidePanelLinks,
   Header: SidePanelHeader,
   BackLink: SidePanelBackLink,
+  Actions: SidePanelActions,
   Action: SidePanelAction,
   Cards: SidePanelCards,
   Card: SidePanelCard

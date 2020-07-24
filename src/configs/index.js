@@ -3,10 +3,10 @@
 export const IsEnvProduction: boolean = process.env.NODE_ENV === 'production'
 
 // Base URL for Helmet
-export const BaseUrl: string = 'https://funildevendas.herokuapp.com'
+export const BaseUrl: string = 'http://localhost:5000'
 
 // Endpoint Backend
-export const ApiUrl: string | void = 'https://folhadeadao-backend.herokuapp.com' // process.env.REACT_APP_CREDITOR_BASE_URL
+export const ApiUrl: string | void ='http://localhost:5000' // process.env.REACT_APP_CREDITOR_BASE_URL
 
 // Time left to resfresh token, 15 minutes
 export const RefreshThreshold: number = 15

@@ -34,12 +34,15 @@ function Cache(): TLoader<TCacheLoader> {
       return false
     })
     if (cacheInx >= 0) {
-      caches = caches.map<TCache>((cache) => {
-        return {
-          ...cache,
-          data: payload.data,
-          lastUpdate: moment()
+      caches = caches.map<TCache>((cache, i) => {
+        if (i === cacheInx) {
+          return {
+            ...cache,
+            data: payload.data,
+            lastUpdate: moment()
+          }
         }
+        return cache
       })
     } else {
       caches = caches.push({

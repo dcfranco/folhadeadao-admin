@@ -1,13 +1,14 @@
 import { Record } from 'immutable'
 import BaseList, { toEntityList } from 'base/BaseList'
-import Seller from 'models/Seller'
+import UserAdmin from 'models/UserAdmin'
 
 import {
   SELLERS_ASYNC_SUCCESS,
   SELLER_ASYNC_SUCCESS,
   SELLERS_ASYNC_FAIL,
   SELLERS_UPDATE_PAGE,
-  SELLER_RESET_SELECTED
+  SELLER_RESET_SELECTED,
+  SELLERS_UPDATE_FILTERS
 } from 'admin/actions/sellers'
 
 const SellersOptions = new Record({
@@ -23,7 +24,7 @@ const SellersFilters = new Record({
 const initialState = new BaseList({
   errorMessage: '',
   count: 0,
-  results: toEntityList([], Seller),
+  results: toEntityList([], UserAdmin),
   options: SellersOptions(),
   filters: SellersFilters()
 })
@@ -33,20 +34,27 @@ const actionsMap = {
     const { payload: seller } = action
     const options = state.get('options')
     return state.merge({
-      options: options.set('selected', new Seller(seller))
+      options: options.set('selected', new UserAdmin(seller))
     })
   },
   [SELLERS_ASYNC_SUCCESS]: (state, action) => {
     const { payload } = action
 
     return state.merge({
-      results: toEntityList(payload, Seller)
+      results: toEntityList(payload, UserAdmin)
     })
   },
   [SELLER_RESET_SELECTED]: (state) => {
     const options = state.get('options')
     return state.merge({
       options: options.set('selected', null)
+    })
+  },
+  [SELLERS_UPDATE_FILTERS]: (state, action) => {
+    const { payload: { search } } = action
+    const filters = state.get('filters')
+    return state.merge({
+      filters: filters.set('search', search)
     })
   },
   [SELLERS_ASYNC_FAIL]: (state, action) => {

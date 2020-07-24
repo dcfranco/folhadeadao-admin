@@ -1,8 +1,7 @@
 // @flow
 import BaseRecord from 'base/BaseRecord'
 import { List } from 'immutable'
-import Customer from './Customer'
-import Seller from './Seller'
+import UserClient from './UserClient'
 import type { TFunnel } from './types/Funnel'
 
 const defaultValues: TFunnel = {
@@ -12,9 +11,9 @@ const defaultValues: TFunnel = {
   hasFinished: false,
   token: null,
   funnelId: null,
-  customerId: null,
+  userClientId: null,
   sellerId: null,
-  customer: null,
+  userClient: null,
   seller: null,
   funnelAnswers: new List()
 }
@@ -23,8 +22,8 @@ export default class Funnel extends BaseRecord<TFunnel>(defaultValues, 'Funnel')
   constructor(values: Object) {
     super({
       ...values,
-      customer: values && values.customer ? new Customer(values.customer) : defaultValues.customer,
-      seller: values && values.seller ? new Seller(values.seller) : defaultValues.seller,
+      userClient: values && values.userClient
+        ? new UserClient(values.userClient) : defaultValues.userClient,
       funnelAnswers: values && values.funnelAnswers
         ? List(values.funnelAnswers) : defaultValues.funnelAnswers
     })

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
-import React, { Fragment } from 'react'
+import React, { Fragment, forwardRef } from 'react'
+import classNames from 'classnames'
 
-const TextArea = (props) => {
+const TextArea = forwardRef((props, ref) => {
   const {
     onChange,
     onBlur,
@@ -11,8 +12,10 @@ const TextArea = (props) => {
     className,
     placeholder,
     value,
-    checked,
+    min,
     inputMode,
+    onFocus,
+    maxLength,
     tabIndex
   } = props
 
@@ -24,28 +27,35 @@ const TextArea = (props) => {
         disabled={disabled}
         name={name}
         onChange={onChange}
+        onFocus={onFocus}
         onBlur={onBlur}
         value={value}
         placeholder={placeholder}
-        className={className}
-        checked={checked}
+        className={classNames(className, {
+          'no-value': value === ''
+        })}
         inputMode={inputMode}
         tabIndex={tabIndex}
+        min={min}
+        maxLength={maxLength}
+        ref={ref}
       />
     </Fragment>
   )
-}
+})
 
 TextArea.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   value: PropTypes.any,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   className: PropTypes.string,
-  checked: PropTypes.any,
+  min: PropTypes.number,
+  maxLength: PropTypes.number,
   inputMode: PropTypes.string,
   tabIndex: PropTypes.number
 }
@@ -53,11 +63,13 @@ TextArea.propTypes = {
 TextArea.defaultProps = {
   onChange: null,
   onBlur: null,
+  onFocus: null,
   value: '',
   placeholder: '',
   disabled: false,
   className: '',
-  checked: false,
+  min: null,
+  maxLength: null,
   inputMode: 'text',
   tabIndex: null
 }

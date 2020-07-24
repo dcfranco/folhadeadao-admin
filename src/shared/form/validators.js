@@ -129,6 +129,13 @@ export const email = ((value) => {
     ? 'E-mail inválido' : undefined
 })
 
+
+export const username = ((value) => {
+  return value && !/^[\w]+$/i.test(value)
+    ? 'Usuário inválido, não pode possuir caracteres especiais' : undefined
+})
+
+
 export const cpfOrEmailValidator = (value) => {
   if (value) {
     // eslint-disable-next-line no-restricted-globals

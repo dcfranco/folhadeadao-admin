@@ -72,18 +72,30 @@ export function sellersAsyncRequest(force = false) {
     const { sellers } = getState().admin
     const options = sellers.get('options')
     const offset = options.get('currentPageIndex') * options.get('limit')
+    const search = sellers.getIn(['filters', 'search'])
+    const searchObj = search ? {
+      or: [
+        { name: { like: `%${search}%` } },
+        { email: { like: `%${search}%` } }
+      ]
+    } : {}
 
     try {
       const response = await service.api({
-        path: '/sellers',
+        path: '/admins',
         method: 'GET',
         force,
         queryParams: {
           limit: options.get('limit'),
           offset,
-          include: [{
-            relation: 'user'
-          }]
+          where: {
+            isSeller: 1,
+            ...searchObj
+          },
+          include: [
+            { relation: 'user' },
+            { relation: 'userClients' }
+          ]
         },
         body: null
       })
@@ -105,7 +117,7 @@ export function sellerAsyncRequest(sellerId) {
 
     try {
       const response = await service.api({
-        path: '/sellers/:sellerId',
+        path: '/admins/:sellerId',
         method: 'GET',
         pathParams: {
           sellerId
@@ -124,13 +136,16 @@ export function sellerAsyncRequest(sellerId) {
   }
 }
 
-export function sellerCreateRequest(seller) {
+export function sellerCreateRequest(sellerId, seller) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
     try {
       const response = await service.api({
-        path: '/sellers',
+        path: '/admins/:sellerId/user',
+        pathParams: {
+          sellerId
+        },
         method: 'POST',
         body: seller
       })
@@ -152,7 +167,7 @@ export function sellerEditRequest(sellerId, seller) {
 
     try {
       const response = await service.apiV3({
-        path: '/sellers/:sellerId',
+        path: '/users/:sellerId',
         method: 'PUT',
         pathParams: {
           sellerId
@@ -177,7 +192,7 @@ export function sellerDeleteRequest(sellerId) {
 
     try {
       await service.api({
-        path: '/sellers/:sellerId',
+        path: '/admins/:sellerId/user',
         method: 'DELETE',
         pathParams: {
           sellerId
@@ -185,7 +200,6 @@ export function sellerDeleteRequest(sellerId) {
       })
 
       await dispatch(sellerDeleteSuccess())
-      await dispatch(sellerResetSelected())
       return true
     } catch (errorMessage) {
       dispatch(sellersAsyncFail(errorMessage))

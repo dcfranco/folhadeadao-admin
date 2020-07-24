@@ -5,11 +5,11 @@ export const USER_ASYNC_FAIL = 'CORE/USER_ASYNC_FAIL'
 export const USER_SELECT_PROFILE = 'CORE/USER_SELECT_PROFILE'
 export const USER_LOGOUT = 'CORE/USER_LOGOUT'
 
-function userAsyncSuccess({ user, token, seller }) {
+function userAsyncSuccess({ user, token, userAdmin }) {
   return {
     type: USER_ASYNC_SUCCESS,
     user,
-    seller,
+    userAdmin,
     token
   }
 }
@@ -34,7 +34,7 @@ export function userSelectProfile(profile) {
   }
 }
 
-export function userAsyncRequest(email, password) {
+export function userAsyncRequest(username, password) {
   return async (dispatch, getState, service) => {
     dispatch(appLoadSpinner())
 
@@ -44,7 +44,7 @@ export function userAsyncRequest(email, password) {
         method: 'POST',
         force: true,
         body: {
-          email,
+          username,
           password
         }
       })

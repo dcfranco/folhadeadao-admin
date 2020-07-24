@@ -45,14 +45,14 @@ const UserViewSidePanel = () => {
         { funnels.size > 0 ? (
           <Cards>
             { funnels.map((funnel) => {
-              const customer = funnel.get('customer')
+              const userClient = funnel.get('userClient')
               return (
                 <Card
                   key={funnel.get('id')}
                   isActive={parseInt(funnel.get('id'), 10) === parseInt(funnelId, 10)}
                   onClick={onUserCardClick(funnel)}
                 >
-                  <FunnelCard title={customer.getFullName()} cpf={customer.get('email')} />
+                  <FunnelCard title={userClient.getFullName()} cpf={userClient.get('email')} />
                 </Card>
               )
             }) }
